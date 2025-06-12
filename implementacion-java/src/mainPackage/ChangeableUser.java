@@ -1,3 +1,5 @@
+import sample.Sample;
+
 public class ChangeableUser extends User {
     private IUserState expertLevel;
     private List<Date> uploadedSamplesDates = new ArrayList();  //esto es para el cálculo statCheck(), para ver si cambió de nivel
