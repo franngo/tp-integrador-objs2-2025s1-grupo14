@@ -18,6 +18,8 @@ public class Main {
 		
 		s1.addReview(OpinionValue.Chinche_Foliada, "Expert", "Pepe");
 		s1.addReview(OpinionValue.ImagenPocoClara, "Basic", "Elias");
+		s1.addReview(OpinionValue.Chinche_Foliada, "Expert", "Exerpt2");
+		s1.addReview(OpinionValue.Chinche_Foliada, "Expert", "Expert3");
 		s1.addReview(OpinionValue.ImagenPocoClara, "Basic", "Ana");
 		s1.addReview(OpinionValue.Chinche_Foliada, "Basic", "Mario");
 		
