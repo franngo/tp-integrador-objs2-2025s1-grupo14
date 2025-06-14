@@ -20,7 +20,7 @@ public class ClosedStateSample {
 	
 	@BeforeEach
 	public void setUp() {
-		s1 =  new Sample("Pepe", EVinchuca.Guasayana); //falta el location
+		s1 =  new Sample("Pepe", EVinchuca.Guasayana, null); //falta el location
 		
 	}
 

@@ -8,8 +8,13 @@ public class Closed implements ISampleState{
 	}
 
 	@Override
-	public boolean isValid(String expertise,Sample sample) {
+	public boolean isValid(String expertise) {
 		return false;
+	}
+
+	@Override
+	public void addReview(String expertise, Sample sample) {
+		
 	}
 
 }

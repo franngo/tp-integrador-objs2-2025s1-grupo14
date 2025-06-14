@@ -1,29 +1,26 @@
 package sample;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
-
+import position.*;
 import Enums.*;
 import mainPackage.Review;
-import net.bytebuddy.asm.Advice.This;
+
 
 public class Sample {
 	//Esto es una prueba para ver si se hacer esto en eclipse
 	private String user;
 	private String photo;
 	private EVinchuca specie;
-	//private Position location;
+	private Position location;
 	private ISampleState state;
 	
 	private List<Review> reviews = new ArrayList<Review>();
 	
 	
 	//CONSTRUCTUR
-	public Sample(String user, EVinchuca specie) { //,Position location ) {
+	public Sample(String user, EVinchuca specie ,Position location ) {
 		this.user = user;
 		this.photo = "photo.png";
 		this.specie = specie;
@@ -36,12 +33,25 @@ public class Sample {
 		 * Agrega la opion del usuario si el estado lo permite.
 		 */
 		
-		if(state.isValid(expertise, this)) {
+		//Solucion temprar por lo mismo que en el User.review(...)
+		if(state.isValid(expertise)) {
+			state.addReview(expertise,this);
 			reviews.add(new Review(opinion, expertise, userName));
 		}
 	}
 	
 	
+	public boolean puedeOpinar(String userName, String expertise) {
+		return  state.isValid(expertise) &&
+				reviews.stream()
+				.map(r -> r.getUserName())
+				.filter(user -> user.equalsIgnoreCase(userName))
+				.toList().size() != 1; // se puede cambiar la forma pero no entiendí el noneMatch().
+		/*
+		 * Si es 0 no es su Sample, puede opinar. Si es 1 o ya opino o es su Sample.
+		 */
+	}
+
 	public OpinionValue currentResult() {
 		double max = 0;
 		double curr = 0;
@@ -91,10 +101,6 @@ public class Sample {
 
 	public List<Review> getReviews() {
 		return reviews;
-	}
-
-	public void setReviews(List<Review> reviews) {
-		this.reviews = reviews;
 	}
 
 	public void setState(ISampleState state) {
