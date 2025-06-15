@@ -9,6 +9,7 @@ import java.util.List;
 
 import Enums.*;
 import mainPackage.App;
+import mainPackage.Review;
 
 public class ChangeableUser extends User {
     private List<LocalDate> uploadedSamplesDates = new ArrayList<LocalDate>();  //esto es para el cálculo statCheck(), para ver si cambió de nivel
@@ -35,22 +36,41 @@ public class ChangeableUser extends User {
     }
 
     @Override
-    protected String getExpertise() {
+    public String getExpertise() {
         return state.getExpertise(); //si es Basic retornará "Basic" y si es Expert retornará "Expert"
     }
 
-    private void statCheck() {
+    public void statCheck() {
         state.statCheck(this, uploadedSamplesDates, uploadedReviewsDates);
         //cambia o no cambia dependiendo de si las 20 reviews más reciente son todas hechas en los últimos nosecuantos días y las 10 
         //samples más recientes son todas hechas también en los últimos nosecuantos días.
     }
     
-    protected void setState(IUserState state) {
+    public void setState(IUserState state) { //public para los test
     	this.state = state;
     }
 
 	@Override
 	protected void uploadedReviewsDates() {
 		uploadedReviewsDates.add(LocalDate.now());		
+	}
+
+	public List<LocalDate> getUploadedSamplesDates() {
+		return uploadedSamplesDates;
+	}
+
+	public List<LocalDate> getUploadedReviewsDates() {
+		return uploadedReviewsDates;
+	}
+	//Test
+	
+	public void setCantidadReviewsDated(int cantidad, LocalDate date) {
+		for(int x = 0; x < cantidad; x++) {
+			uploadedReviewsDates.add(date);
+		}
+	}
+	
+	public IUserState getState() {
+		return state;
 	}
 }

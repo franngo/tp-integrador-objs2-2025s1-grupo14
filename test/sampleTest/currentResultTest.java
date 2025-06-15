@@ -1,4 +1,4 @@
-package tpIntegradorGrupo14;
+package sampleTest;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;

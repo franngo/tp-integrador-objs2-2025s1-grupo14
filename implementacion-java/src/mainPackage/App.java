@@ -12,4 +12,8 @@ public class App {
 	public void addSample(Sample sample) {
 		samples.add(sample);
 	}
+	
+	public List<Sample> getSamples(){
+		return samples;
+	}
 }

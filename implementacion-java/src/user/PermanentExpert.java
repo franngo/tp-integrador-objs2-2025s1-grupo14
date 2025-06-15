@@ -10,7 +10,7 @@ public class PermanentExpert extends User {
     }
 
     @Override
-    protected String getExpertise() {
+    public String getExpertise() {
         return state.getExpertise();
     }
 

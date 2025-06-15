@@ -1,4 +1,4 @@
-package tpIntegradorGrupo14;
+package sampleTest;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -8,11 +8,10 @@ import org.junit.jupiter.api.Test;
 
 import Enums.EVinchuca;
 import Enums.OpinionValue;
-import sample.ExpertOnly;
 import sample.Open;
 import sample.Sample;
 
-public class ExpertOnlyStateSample {
+public class OpenStateSample {
 	
 	Sample s1 ;
 
@@ -24,15 +23,14 @@ public class ExpertOnlyStateSample {
 	}
 	
 	@Test
-	public void ExpertAddReviews() {
+	public void basicAddReviews() {
 		s1.addReview(OpinionValue.Chinche_Foliada, "Basic", "Pepe");
-		assertTrue(s1.getState() instanceof Open);
-		
-		s1.addReview(OpinionValue.ImagenPocoClara, "Expert", "Ana");
-		assertTrue(s1.getState() instanceof ExpertOnly);
-		
+		s1.addReview(OpinionValue.ImagenPocoClara, "Basic", "Ana");
 		s1.addReview(OpinionValue.Chinche_Foliada, "Basic", "Felipe");
 		
-		assertEquals(2, s1.getReviews().size());
+		
+		assertTrue(s1.getState() instanceof Open);
+		assertEquals(3, s1.getReviews().size());
 	}
+	
 }

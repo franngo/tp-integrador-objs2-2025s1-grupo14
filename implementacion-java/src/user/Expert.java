@@ -14,7 +14,7 @@ public class Expert extends IUserState{
 
 	@Override
 	public void statCheck(ChangeableUser user, List<LocalDate> samples, List<LocalDate> reviews) {
-		if(this.cantidadDeFechasEntreDias(samples, 30) < 10 && this.cantidadDeFechasEntreDias(reviews, 30) < 20) {
+		if(this.cantidadDeFechasEntreDias(samples, 30) < 10 || this.cantidadDeFechasEntreDias(reviews, 30) < 20) {
 			
 			user.setState(new Basic());
 		

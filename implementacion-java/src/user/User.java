@@ -1,6 +1,9 @@
 package user;
 
 import sample.*;
+
+import java.awt.Event;
+
 import Enums.*;
 import mainPackage.*;
 import position.*;
@@ -21,7 +24,7 @@ public abstract class User {
 
     public void uploadSample(EVinchuca specie, Position location) {
     	//se crea la sample
-        Sample sample = new Sample(name,specie,location);
+        Sample sample = this.sampleFactory(specie, location);
         
         //Crea la primer review con la especie que el usuario identifico. (Pasa de un enum a otro)
         //El paso funciona en orden, E1(a,b,c) y E2(1,2,3) => E1.a pasa a E2.1. en el orden en que se define      
@@ -47,6 +50,11 @@ public abstract class User {
         //tanto, la validación se hacía sobre la Review ya generada, la cual podía terminar descartada.
     }
 
+    public Sample sampleFactory(EVinchuca specie, Position location) {
+    	return new Sample(name,specie,location);
+    }
+    
     protected abstract void uploadedReviewsDates();
-	abstract protected String getExpertise();
+	abstract public String getExpertise();
+	
 }

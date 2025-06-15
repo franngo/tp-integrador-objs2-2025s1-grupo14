@@ -11,11 +11,11 @@ public abstract class IUserState {
 	
 	public abstract void statCheck(ChangeableUser user, List<LocalDate> samples, List<LocalDate> reviews);
 	
-	protected double cantidadDeFechasEntreDias(List<LocalDate> dates, int days) {
+	public double cantidadDeFechasEntreDias(List<LocalDate> dates, int days) {
 		return dates.stream().filter(date -> this. estaFechaEntreDias(date, days)).count();
 	}
 	
 	protected boolean estaFechaEntreDias(LocalDate date, int days) {
-		return date.isBefore(LocalDate.now()) && date.isAfter(LocalDate.now().minusDays(days));
+		return date.isBefore(LocalDate.now().plusDays(1)) && date.isAfter(LocalDate.now().minusDays(days));
 	}
 }
