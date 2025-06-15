@@ -2,7 +2,6 @@ package user;
 
 import sample.*;
 
-import java.awt.Event;
 
 import Enums.*;
 import mainPackage.*;

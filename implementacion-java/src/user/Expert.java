@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
-public class Expert extends IUserState{
+public class Expert implements IUserState{
 
 	@Override
 	public String getExpertise() {
@@ -14,7 +14,7 @@ public class Expert extends IUserState{
 
 	@Override
 	public void statCheck(ChangeableUser user, List<LocalDate> samples, List<LocalDate> reviews) {
-		if(this.cantidadDeFechasEntreDias(samples, 30) < 10 || this.cantidadDeFechasEntreDias(reviews, 30) < 20) {
+		if(user.cantidadDeFechasEntreDias(samples, 30) < 10 || user.cantidadDeFechasEntreDias(reviews, 30) < 20) {
 			
 			user.setState(new Basic());
 		
