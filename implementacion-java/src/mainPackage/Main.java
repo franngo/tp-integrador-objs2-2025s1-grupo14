@@ -30,7 +30,7 @@ public class Main {
 			
 			
 			
-			System.out.println(user.getState().cantidadDeFechasEntreDias(user.getUploadedReviewsDates(), 30));
+			//System.out.println(user.getState().cantidadDeFechasEntreDias(user.getUploadedReviewsDates(), 30));
 			System.out.println(user.getUploadedReviewsDates().size());
 			System.out.println(user.getUploadedSamplesDates().size());
 			user.statCheck();

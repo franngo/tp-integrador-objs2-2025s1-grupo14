@@ -14,8 +14,4 @@ public class PermanentExpert extends User {
         return state.getExpertise();
     }
 
-	@Override
-	protected void uploadedReviewsDates() {
-		
-	}
 }
