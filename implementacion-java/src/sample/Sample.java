@@ -9,7 +9,6 @@ import mainPackage.Review;
 
 
 public class Sample {
-	//Esto es una prueba para ver si se hacer esto en eclipse
 	private String user;
 	private String photo;
 	private EVinchuca specie;
@@ -18,8 +17,6 @@ public class Sample {
 	
 	private List<Review> reviews = new ArrayList<Review>();
 	
-	
-	//CONSTRUCTUR
 	public Sample(String user, EVinchuca specie ,Position location ) {
 		this.user = user;
 		this.photo = "photo.png"; //es la misma en todos. En este contexto no tiene importancia.
@@ -92,6 +89,10 @@ public class Sample {
 		}
 		return reviews;
 	}
+	
+	public List<Sample> getSamplesInRangeToMe(List<Sample> samples, double radius, MeasureUnit mu) {
+        return this.location.getSamplesInRangeToMe(samples, radius, mu);
+    }
 
 	//GETTERS Y SETTERS (algunos se usan solo para los test)
 	public String getUser() {
@@ -117,7 +118,5 @@ public class Sample {
 	public void setState(ISampleState state) {
 		this.state = state;
 	}
-	
-	
 	
 }

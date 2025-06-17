@@ -51,15 +51,15 @@ public class Position {
     			collect(Collectors.toList());
     }
 
-    //el punto 3 de Ubicacion del pdf me da a entender que Sample tiene que tener un comportamiento que le delega a su position
+    //el punto 3 del apartado Ubicación del pdf me da a entender que Sample tiene que tener un comportamiento que 
+    //le delega a su position
     /*
     public List<Sample> getSamplesInRange(List<Sample> samples, double radius, MeasureUnit mu) {
         return this.location.getSamplesIn(samples, radius, mu);
     }
     */
-
-   //hay que fijarse por la position de cada Sample
-    public List<Sample> getSamplesIn(List<Sample> samples, double radius, MeasureUnit mu) {
+    
+    public List<Sample> getSamplesInRangeToMe(List<Sample> samples, double radius, MeasureUnit mu) {
     	return samples.stream().
     			filter((s) -> this.getDistanceTo(s.getLocation(), mu) <= radius).
     			collect(Collectors.toList());

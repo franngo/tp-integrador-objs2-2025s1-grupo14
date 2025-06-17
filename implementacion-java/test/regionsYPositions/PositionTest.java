@@ -2,9 +2,13 @@ package regionsYPositions;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import Enums.EVinchuca;
+
 import java.util.List;
 import java.util.ArrayList;
 import position.*;
+import sample.*;
 
 public class PositionTest {
 	Position bsAs = new Position(-34.6037, -58.3816);
@@ -44,6 +48,31 @@ public class PositionTest {
 		assertTrue(psInRange.contains(bahiaBlanca));
 		assertTrue(psInRange.contains(stgoDelEstero));
 		assertFalse(psInRange.contains(stgoDeChile));
+	}
+	
+	@Test
+	public void samplesInRangeTest() {
+		List <Sample> ss = new ArrayList<Sample>();
+		Sample sStgoDeChile = new Sample("marce678", EVinchuca.Infestans, stgoDeChile);
+		Sample sMontevideo = new Sample("andrea2001", EVinchuca.Sordida, montevideo);
+		Sample sBahiaBlanca = new Sample("edgarErnesto4", EVinchuca.Guasayana, bahiaBlanca);
+		Sample sStgoDelEstero = new Sample("lucho234", EVinchuca.Infestans, stgoDelEstero);
+		ss.add(sStgoDeChile);
+		ss.add(sMontevideo);
+		ss.add(sBahiaBlanca);
+		ss.add(sStgoDelEstero);
+		List <Sample> ssInRange = bsAs.getSamplesInRangeToMe(ss, 573, new Kilometers());
+		assertEquals(2, ssInRange.size());
+		assertTrue(ssInRange.contains(sMontevideo));
+		assertTrue(ssInRange.contains(sBahiaBlanca));
+		assertFalse(ssInRange.contains(sStgoDelEstero));
+		assertFalse(ssInRange.contains(sStgoDeChile));
+		ssInRange = bsAs.getSamplesInRangeToMe(ss, 1000, new Kilometers());
+		assertEquals(3, ssInRange.size());
+		assertTrue(ssInRange.contains(sMontevideo));
+		assertTrue(ssInRange.contains(sBahiaBlanca));
+		assertTrue(ssInRange.contains(sStgoDelEstero));
+		assertFalse(ssInRange.contains(sStgoDeChile));
 	}
 	
 }
