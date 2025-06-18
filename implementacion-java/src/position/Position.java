@@ -4,8 +4,8 @@ import java.util.stream.*;
 import sample.*;
 
 public class Position {
-    private double latitude;
-    private double longitude;
+    private double latitude; //expresada en grados decimales
+    private double longitude; //expresada en grados decimales
     
     public Position(double latitude, double longitude) {
     	this.latitude = latitude;
@@ -54,8 +54,11 @@ public class Position {
     //el punto 3 del apartado Ubicación del pdf me da a entender que Sample tiene que tener un comportamiento que 
     //le delega a su position
     /*
-    public List<Sample> getSamplesInRange(List<Sample> samples, double radius, MeasureUnit mu) {
-        return this.location.getSamplesIn(samples, radius, mu);
+    public class Sample() {
+    	...
+    	public List<Sample> getSamplesInRange(List<Sample> samples, double radius, MeasureUnit mu) {
+        	return this.location.getSamplesIn(samples, radius, mu);
+    	}
     }
     */
     
