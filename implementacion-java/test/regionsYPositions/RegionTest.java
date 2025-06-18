@@ -44,4 +44,24 @@ public class RegionTest {
 		assertFalse(ssInRange.contains(sStgoDelEstero));
 	}
 	
+	@Test
+	public void checkOverlapsTest() {
+		//Region que nace dentro de pba, por lo que se da solapamiento.
+		Region partidoBahiaBlanca = new Region(bahiaBlanca, 10, "Partido de Bahía Blanca");
+		//Region que no nace dentro de pba, pero, por su radio, se solapa con esta.
+		Position rioDeLaPlata = new Position(-34.7849, -57.2300); //entre medio de CABA y Montevideo
+		Region rRioDeLaPlata = new Region(rioDeLaPlata, 123, "Río de La Plata");
+		//Region que no nace dentro de pba y con un radio tal que no se solapa con esta.
+		Region regionMetropolitanaChile = new Region(stgoDeChile, 121, "Región Metropolitana (Chile)");
+		List<Region> rs = new ArrayList<Region>();
+		rs.add(partidoBahiaBlanca);
+		rs.add(rRioDeLaPlata);
+		rs.add(regionMetropolitanaChile);
+		List<Region> overlaps = pba.checkOverlaps(rs);
+		assertEquals(2, overlaps.size());
+		assertTrue(overlaps.contains(partidoBahiaBlanca));
+		assertTrue(overlaps.contains(rRioDeLaPlata));
+		assertFalse(overlaps.contains(regionMetropolitanaChile));
+	}
+	
 }

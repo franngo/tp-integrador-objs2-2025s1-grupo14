@@ -2,6 +2,7 @@ package mainPackage;
 import java.util.List;
 import position.*;
 import sample.*;
+import java.util.stream.*;
 
 public class Region {
     private Position center;
@@ -14,8 +15,14 @@ public class Region {
     	this.name = name;
     }
 
+    /*Para el cálculo, se verifica con cada Region de la lista si la distancia entre el centro de la Region actual
+     * y el de la Region analizada es menor que la suma de sus radios.
+     */
     public List<Region> checkOverlaps(List<Region> regions) {
-
+    	return regions.stream().
+    			filter((r) -> this.getCenter().getDistanceTo(r.getCenter(), new Kilometers()) < 
+    					(this.getRadius() + r.getRadius())).
+    			collect(Collectors.toList());
     }
 
     public List<Sample> getSamplesInRegion(List<Sample> samples) {
