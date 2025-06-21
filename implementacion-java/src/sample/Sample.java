@@ -9,7 +9,6 @@ import mainPackage.Review;
 
 
 public class Sample {
-	//Esto es una prueba para ver si se hacer esto en eclipse
 	private String user;
 	private String photo;
 	private EVinchuca specie;
@@ -18,13 +17,11 @@ public class Sample {
 	
 	private List<Review> reviews = new ArrayList<Review>();
 	
-	
-	//CONSTRUCTUR
 	public Sample(String user, EVinchuca specie ,Position location ) {
 		this.user = user;
-		this.photo = "photo.png";
+		this.photo = "photo.png"; //es la misma en todos. En este contexto no tiene importancia.
 		this.specie = specie;
-		//this.location = location;
+		this.location = location;
 		state = new Open();
 	}
 
@@ -33,8 +30,8 @@ public class Sample {
 		 * Agrega la opion del usuario si el estado lo permite.
 		 */
 		
-		//Solucion temprar por lo mismo que en el User.review(...)
-		if(state.isValid(expertise)) {
+		//Este condicional cumple la funcion de testear el cambio de estado sin tener que recurrir al usuario.
+		if(this.puedeOpinar(userName,expertise)) { //podria solo tener state.isValid(...param...)
 			state.addReview(expertise,this);
 			reviews.add(new Review(opinion, expertise, userName));
 		}
@@ -42,6 +39,9 @@ public class Sample {
 	
 	
 	public boolean puedeOpinar(String userName, String expertise) {
+		/*
+		 * Verifica si el usuario puede opinar en esta muestra, dependiendo su estado y que tenga haya una opinion de el.
+		 */
 		return  state.isValid(expertise) &&
 				reviews.stream()
 				.map(r -> r.getUserName())
@@ -53,13 +53,18 @@ public class Sample {
 	}
 
 	public OpinionValue currentResult() {
+		/*
+		 * Indica el resultado de la muestra actual, basandose en las opiniones que tiene.
+		 */
 		double max = 0;
 		double curr = 0;
 		OpinionValue maxOpinion = OpinionValue.Ninguna;
 		
 		for(OpinionValue ov : OpinionValue.values()) {
 			curr = Collections.frequency(
-					this.listLevel().stream().map(r -> r.getOpinion()).toList()  , ov);
+					this.listLevel().stream().
+					map(r -> r.getOpinion()).toList()
+					, ov);
 			
 			if(max < curr) {
 				max = curr;
@@ -76,13 +81,20 @@ public class Sample {
 	
 	
 	private List<Review> listLevel() {
+		/*
+		 * Devuelve una lista de Opiniones(Review) que hayan hecho los expertos si el state es ExpertOnly, sino devuelve la lista de todas las opiniones.
+		 */
 		if(state instanceof ExpertOnly) {
 			return reviews.stream().filter(r -> r.getExpertise().equalsIgnoreCase("Expert")).toList();
 		}
 		return reviews;
 	}
+	
+	public List<Sample> getSamplesInRangeToMe(List<Sample> samples, double radius, MeasureUnit mu) {
+        return this.location.getSamplesInRangeToMe(samples, radius, mu);
+    }
 
-	//GETTERS Y SETTERS
+	//GETTERS Y SETTERS (algunos se usan solo para los test)
 	public String getUser() {
 		return user;
 	}
@@ -91,9 +103,9 @@ public class Sample {
 		return specie;
 	}
 
-//	public Position getLocation() {
-//		return location;
-//	}
+	public Position getLocation() {
+		return location;
+	}
 
 	public ISampleState getState() {
 		return state;
@@ -106,7 +118,5 @@ public class Sample {
 	public void setState(ISampleState state) {
 		this.state = state;
 	}
-	
-	
 	
 }

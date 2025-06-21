@@ -2,14 +2,12 @@ package user;
 import sample.*;
 import position.*;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import Enums.*;
 import mainPackage.App;
-import mainPackage.Review;
 
 public class ChangeableUser extends User {
     private List<LocalDate> uploadedSamplesDates = new ArrayList<LocalDate>();  //esto es para el cálculo statCheck(), para ver si cambió de nivel
@@ -23,16 +21,22 @@ public class ChangeableUser extends User {
     @Override
     public void uploadSample(EVinchuca specie, Position location) {
     	/*
-    	 * Cuando sube un sample, agrega la fecha en su historial. (No importa que sample sube)
+    	 * Cuando sube un sample, agrega la fecha en su historial. (No importa que fecha es de que sample)
     	 */
         super.uploadSample(specie, location);
         uploadedSamplesDates.add(LocalDate.now()); //hay que cargar la LocalDate actual
     }
 
     @Override
-    public void review(Sample sample, OpinionValue opinion) {
+    public void addReview(Sample sample, OpinionValue opinion) {
+    	/*
+    	 * Verifica el esatdo y delega la tarea a su clase padre.
+    	 */
         this.statCheck(); //para ver si se tiene que actualizar el state
-        super.review(sample, opinion);
+        super.addReview(sample, opinion);
+        if(sample.puedeOpinar(name, this.getExpertise())) {
+    		this.uploadedReviewsDates();
+        }
     }
 
     @Override
@@ -50,7 +54,7 @@ public class ChangeableUser extends User {
     	this.state = state;
     }
 
-	@Override
+	// @Override
 	protected void uploadedReviewsDates() {
 		uploadedReviewsDates.add(LocalDate.now());		
 	}
@@ -66,10 +70,16 @@ public class ChangeableUser extends User {
 	
 	//para calcular los cambios de estado
 	public double cantidadDeFechasEntreDias(List<LocalDate> dates, int days) {
+		/*
+		 * Devuelve la cantidad de dates en una lista que estan entre n(days) dias antes de la fecha de hoy.
+		 */
 		return dates.stream().filter(date -> this. estaFechaEntreDias(date, days)).count();
 	}
 	
 	protected boolean estaFechaEntreDias(LocalDate date, int days) {
+		/*
+		 * Indica si la fecha dada (date) esta antes que mañana y despúes de la fehca (hoy - days);
+		 */
 		return date.isBefore(LocalDate.now().plusDays(1)) && date.isAfter(LocalDate.now().minusDays(days));
 	}
 	

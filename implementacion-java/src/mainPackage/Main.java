@@ -12,7 +12,6 @@ import Enums.*;
 import sample.Open;
 import sample.Sample;
 import user.ChangeableUser;
-import userTest.*;
 public class Main {
 
 	public static void main(String[] args) {
@@ -30,7 +29,7 @@ public class Main {
 			
 			
 			
-			System.out.println(user.getState().cantidadDeFechasEntreDias(user.getUploadedReviewsDates(), 30));
+			//System.out.println(user.getState().cantidadDeFechasEntreDias(user.getUploadedReviewsDates(), 30));
 			System.out.println(user.getUploadedReviewsDates().size());
 			System.out.println(user.getUploadedSamplesDates().size());
 			user.statCheck();
