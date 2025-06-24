@@ -1,5 +1,7 @@
 package sample;
 
+import Enums.OpinionValue;
+
 public class ExpertOnly implements ISampleState{
 
 	@Override
@@ -17,9 +19,11 @@ public class ExpertOnly implements ISampleState{
 	}
 
 	@Override
-	public void addReview(String expertise, Sample sample) {
-		this.changeState(sample);
-		System.out.println("Se cierran los comentarios ya opinaron dos expetos y esta verificada!");
+	public void addReview(String expertise, Sample sample,OpinionValue opinion) {
+		if(sample.expertsCoincides(opinion)) {
+			this.changeState(sample);
+			System.out.println("Se cierran los comentarios ya opinaron dos expetos y esta verificada!");
+		}
 	}
 
 }
