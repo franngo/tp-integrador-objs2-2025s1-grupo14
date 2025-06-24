@@ -1,18 +1,25 @@
 package mainPackage;
+import java.util.ArrayList;
 import java.util.List;
 import position.*;
 import sample.*;
 import java.util.stream.*;
 
+import ar.edu.unq.poo2.tpintegrador.organizaciones.EventManager;
+
 public class Region {
     private Position center;
     private double radius; //expresado en km
     private String name;
+    private List<Sample> samples = new ArrayList<Sample>();
+    private EventManager events;
     
-    public Region(Position center, double radius, String name) {
+    
+    public Region(Position center, double radius, String name, EventManager events) {
     	this.center = center;
     	this.radius = radius;
     	this.name = name;
+    	this.events = events;
     }
 
     /*Para el cálculo, se verifica con cada Region de la lista si la distancia entre el centro de la Region actual
@@ -25,11 +32,19 @@ public class Region {
     			collect(Collectors.toList());
     }
 
-    public List<Sample> getSamplesInRegion(List<Sample> samples) {
-        return this.getCenter().getSamplesInRangeToMe(samples, this.getRadius(), new Kilometers());
+    public List<Sample> getSamplesInRegion() {
+    	return samples;
+        //return this.getCenter().getSamplesInRangeToMe(samples, this.getRadius(), new Kilometers());
     }
-
-    //public void notify(String eventType);
+    
+    public void addSample(Sample sample) {
+    	samples.add(sample);
+    	this.notify("upload", sample);
+    }
+    
+    public void notify(String eventType, Sample sample) {
+    	events.notify(eventType, sample, this);
+    }
     
     public Position getCenter() {
     	return this.center;
@@ -37,5 +52,17 @@ public class Region {
     
     public double getRadius() {
     	return this.radius;
+    }
+    
+    public List<Sample> getSamples(){
+    	return samples;
+    }
+    
+    public boolean isPosInside(Position position) {
+    	double distanciaKm = position.getDistanceTo(center, new Kilometers());
+        double radioKm = this.getRadius();
+       // System.out.println("Distancia (km): " + distanciaKm + " | Radio (km): " + radioKm);
+        return distanciaKm <= radioKm;
+    
     }
 }

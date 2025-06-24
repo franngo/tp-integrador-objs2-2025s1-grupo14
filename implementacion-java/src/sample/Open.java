@@ -1,5 +1,7 @@
 package sample;
 
+import Enums.OpinionValue;
+
 public class Open implements ISampleState{
 
 	@Override
@@ -13,7 +15,7 @@ public class Open implements ISampleState{
 	}
 
 	@Override
-	public void addReview(String expertise, Sample sample) {
+	public void addReview(String expertise, Sample sample, OpinionValue opinion) {
 		if(expertise.equalsIgnoreCase("Expert")) {
 			System.out.println("A partir de ahora opinan Expertos");
 			this.changeState(sample);

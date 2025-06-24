@@ -1,10 +1,21 @@
 package sample;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import Enums.OpinionValue;
+import mainPackage.Region;
+
 public class ExpertOnly implements ISampleState{
 
 	@Override
 	public void changeState(Sample sample) {
+		List<Region> reg = sample.getLocation().getRegions(sample.getLocation().getApp());
+		if(reg.stream().map(r -> r.getSamples()).flatMap(s -> s.stream()).toList().contains(sample)){	
+			sample.getLocation().getRegions(sample.getLocation().getApp()).stream().forEach(r -> r.notify("validation", sample));
+		}
 		sample.setState(new Closed());
+		
 	}
 
 	@Override
@@ -17,9 +28,12 @@ public class ExpertOnly implements ISampleState{
 	}
 
 	@Override
-	public void addReview(String expertise, Sample sample) {
-		this.changeState(sample);
-		System.out.println("Se cierran los comentarios ya opinaron dos expetos y esta verificada!");
+	public void addReview(String expertise, Sample sample,OpinionValue opinion) {
+		if(sample.expertsCoincides(opinion)) {
+			this.changeState(sample);
+			System.out.println("Se cierran los comentarios ya opinaron dos expetos y esta verificada!");
+		}
 	}
+
 
 }

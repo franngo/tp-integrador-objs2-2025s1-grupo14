@@ -32,7 +32,7 @@ public class Sample {
 		
 		//Este condicional cumple la funcion de testear el cambio de estado sin tener que recurrir al usuario.
 		if(this.puedeOpinar(userName,expertise)) { //podria solo tener state.isValid(...param...)
-			state.addReview(expertise,this);
+			state.addReview(expertise,this,opinion);
 			reviews.add(new Review(opinion, expertise, userName));
 		}
 	}
@@ -117,6 +117,12 @@ public class Sample {
 
 	public void setState(ISampleState state) {
 		this.state = state;
+		
+	}
+
+	public boolean expertsCoincides(OpinionValue opinion) {
+		return this.listLevel().stream().filter(r -> r.getOpinion() == opinion).count() >= 1;
+	
 	}
 	
 }

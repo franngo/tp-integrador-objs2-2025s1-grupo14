@@ -1,11 +1,20 @@
 package ar.edu.unq.poo2.tpintegrador.organizaciones;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import mainPackage.Region;
+import sample.Sample;
 
 public class EventManager {
 	
 	private List<Iobserver> uploadSubs;
 	private List<Iobserver> validationSubs;
+	
+	public EventManager() {
+		uploadSubs = new ArrayList<Iobserver>();
+		validationSubs = new ArrayList<Iobserver>();
+	}
 	
 	
 	//suscribe
@@ -28,12 +37,13 @@ public class EventManager {
 	}
 	
 	
-	public void notify(String event) {
+	public void notify(String event, Sample sample, Region region) {
 		if(event.equalsIgnoreCase("upload")) {
-			uploadSubs.forEach(s -> s.notify());
+			uploadSubs.forEach(s -> s.notifyUpload(sample, region));
 		} 
-		if (event.equalsIgnoreCase("validation")) {
-			validationSubs.forEach(s -> s.notify());
+		if(event.equalsIgnoreCase("validation")) {
+			validationSubs.forEach(s -> s.notifyValidation(sample, region));
+			
 		}
 	}
 	

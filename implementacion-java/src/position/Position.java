@@ -1,22 +1,29 @@
 package position;
 import java.util.List;
 import java.util.stream.*;
+
+import mainPackage.App;
+import mainPackage.Region;
 import sample.*;
 
 public class Position {
     private double latitude; //expresada en grados decimales
     private double longitude; //expresada en grados decimales
     
-    public Position(double latitude, double longitude) {
+    //prueba
+    private App system;
+    
+    public Position(double latitude, double longitude, App system) {
     	this.latitude = latitude;
     	this.longitude = longitude;
+    	this.system = system;
     }
 
     //1.
     /*Aclaración: Debido al pequeño márgen de error del cálculo, se decide redondear la cifra al entero más cercano.
      * Por tanto, se retorna un int en vez de un double.
      */
-    public int getDistanceTo(Position position, MeasureUnit mu) {   
+    public double getDistanceTo(Position position, MeasureUnit mu) {   
         int radioTierraEnKm = 6371; //radio promedio de la Tierra en km
         //Se utiliza la fórmula del semiverseno para calcular la distancia entre dos coordenadas geográficas expresadas en grados decimales.
         //d = R * 2 * arcsin(√(sin²((lat2 - lat1)/2) + cos(lat1) * cos(lat2) * sin²((lon2 - lon1)/2)))
@@ -40,6 +47,7 @@ public class Position {
         */
         double anguloCentral = 2 * Math.atan2(Math.sqrt(paraRaiz), Math.sqrt(1 - paraRaiz)); //ángulo central entre las 2 coordenadas geográficas
         double distanciaEnKm = radioTierraEnKm * anguloCentral;
+        
         int entero = (int) Math.round(distanciaEnKm);
         return mu.convert(entero);
     }
@@ -74,5 +82,13 @@ public class Position {
 
     public double getLongitude() {
         return this.longitude;
+    }
+    
+    public List<Region> getRegions(App system){
+    	return system.getRegions().stream().filter(r -> r.isPosInside(this)).toList();
+    }
+    
+    public App getApp() {
+    	return system;
     }
 }

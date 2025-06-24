@@ -34,7 +34,9 @@ public abstract class User {
         this.addReview(sample, OpinionValue.values()[specie.ordinal()]); 
         
         //Agrega el sample a la App
-        system.addSample(sample);
+        for(Region r : location.getRegions(system)){
+        	system.addSample(sample, r);
+        }
     }
 
     public void addReview(Sample sample, OpinionValue opinion) {
@@ -55,4 +57,8 @@ public abstract class User {
  //   protected abstract void uploadedReviewsDates();
 	abstract public String getExpertise();
 	
+	
+	public App getApp() {
+		return system;
+	}
 }
