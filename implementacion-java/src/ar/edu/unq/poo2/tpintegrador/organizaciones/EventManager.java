@@ -2,6 +2,8 @@ package ar.edu.unq.poo2.tpintegrador.organizaciones;
 
 import java.util.List;
 
+import mainPackage.Region;
+
 public class EventManager {
 	
 	private List<Iobserver> uploadSubs;
@@ -28,12 +30,12 @@ public class EventManager {
 	}
 	
 	
-	public void notify(String event) {
+	public void notify(String event, Region region) {
 		if(event.equalsIgnoreCase("upload")) {
-			uploadSubs.forEach(s -> s.notify());
+			uploadSubs.forEach(s -> s.notifyUpload(region));
 		} 
 		if (event.equalsIgnoreCase("validation")) {
-			validationSubs.forEach(s -> s.notify());
+			validationSubs.forEach(s -> s.notifyValidation(region));
 		}
 	}
 	

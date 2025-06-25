@@ -1,5 +1,9 @@
 package Enums;
 
-public class TipoDeOrganizacion {
-
+public enum TipoDeOrganizacion {
+	Salud,
+	Educativa,
+	Cultural,
+	Asistencia
+	
 }

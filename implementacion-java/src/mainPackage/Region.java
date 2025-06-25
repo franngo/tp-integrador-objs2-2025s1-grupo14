@@ -4,10 +4,13 @@ import position.*;
 import sample.*;
 import java.util.stream.*;
 
+import ar.edu.unq.poo2.tpintegrador.organizaciones.EventManager;
+
 public class Region {
     private Position center;
     private double radius; //expresado en km
     private String name;
+    private EventManager events;
     
     public Region(Position center, double radius, String name) {
     	this.center = center;
@@ -29,7 +32,9 @@ public class Region {
         return this.getCenter().getSamplesInRangeToMe(samples, this.getRadius(), new Kilometers());
     }
 
-    //public void notify(String eventType);
+    public void notify(String eventType) {
+    	events.notify(eventType, this);
+    }
     
     public Position getCenter() {
     	return this.center;
