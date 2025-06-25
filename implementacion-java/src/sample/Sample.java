@@ -83,11 +83,11 @@ public class Sample {
 	}
 	
 	
-	private List<Review> listLevel() {
+	public List<Review> listLevel() {
 		/*
 		 * Devuelve una lista de Opiniones(Review) que hayan hecho los expertos si el state es ExpertOnly, sino devuelve la lista de todas las opiniones.
 		 */
-		if(state instanceof ExpertOnly) {
+		if(state instanceof ExpertOnly || state instanceof Closed) {
 			return reviews.stream().filter(r -> r.getExpertise().equalsIgnoreCase("Expert")).toList();
 		}
 		return reviews;
@@ -121,6 +121,11 @@ public class Sample {
 	public void setState(ISampleState state) {
 		this.state = state;
 		
+	}
+
+	public boolean expertsCoincides(OpinionValue opinion) {
+		return this.listLevel().stream().filter(r -> r.getOpinion() == opinion).count() >= 1;
+	
 	}
 	
 	public App getApp() {

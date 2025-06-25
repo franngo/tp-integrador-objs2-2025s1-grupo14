@@ -1,9 +1,10 @@
 package sample;
 
+
 import java.util.List;
 import java.util.stream.Collectors;
 
-import Enums.OpinionValue;
+import Enums.*;
 import mainPackage.Region;
 
 public class ExpertOnly implements ISampleState{
