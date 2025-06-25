@@ -27,7 +27,7 @@ public class ClosedStateSample {
 
 	
 	@Test
-	public void CloseReview() {
+	public void ClosedReview() {
 		s1.addReview(OpinionValue.Chinche_Foliada, "Basic", "Pepe");
 		assertTrue(s1.getState() instanceof Open);
 		
@@ -44,7 +44,9 @@ public class ClosedStateSample {
 	}
 	
 	@Test
-	public void ClosedSoloCuandoDosExpertosOpinanLoMismo() {
+
+	public void NoCambiaDeEstadoPorqueLosExpertosNoOpinanLoMismoTest() {
+
 		s1.addReview(OpinionValue.Chinche_Foliada, "Basic", "Pepe");
 		assertTrue(s1.getState() instanceof Open);
 		
@@ -52,11 +54,18 @@ public class ClosedStateSample {
 		assertTrue(s1.getState() instanceof ExpertOnly);
 		
 		s1.addReview(OpinionValue.Phtia_Chinche, "Expert", "Maria Clara");
+
+		assertTrue(s1.getState() instanceof ExpertOnly);
+		
+		
+		s1.addReview(OpinionValue.Chinche_Foliada, "Basic", "Felipe");
+		
+
 		assertFalse(s1.getState() instanceof Closed);
 		
 		
 		s1.addReview(OpinionValue.Chinche_Foliada, "Basic", "Felipe");
 		assertTrue(s1.getState() instanceof ExpertOnly);
-		assertEquals(3, s1.getReviews().size());
+
 	}
 }

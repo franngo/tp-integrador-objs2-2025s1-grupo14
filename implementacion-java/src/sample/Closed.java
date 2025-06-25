@@ -15,7 +15,8 @@ public class Closed implements ISampleState{
 	}
 
 	@Override
-	public void addReview(String expertise, Sample sample,OpinionValue opinion) {
+	public void addReview(String expertise, Sample sample, OpinionValue opinion) {
+
 		
 	}
 

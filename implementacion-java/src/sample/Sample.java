@@ -1,32 +1,31 @@
 package sample;
 
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import position.*;
 import Enums.*;
+import mainPackage.App;
 import mainPackage.Review;
 
 
 public class Sample {
-	//Esto es una prueba para ver si se hacer esto en eclipse
 	private String user;
 	private String photo;
 	private EVinchuca specie;
 	private Position location;
 	private ISampleState state;
+	private App system;
 	
 	private List<Review> reviews = new ArrayList<Review>();
 	
-	
-	//CONSTRUCTUR
 	public Sample(String user, EVinchuca specie ,Position location ) {
 		this.user = user;
 		this.photo = "photo.png"; //es la misma en todos. En este contexto no tiene importancia.
 		this.specie = specie;
 		this.location = location;
 		state = new Open();
+		this.system = null;
 	}
 
 	public void addReview(OpinionValue opinion,String expertise, String userName) {
@@ -93,6 +92,10 @@ public class Sample {
 		}
 		return reviews;
 	}
+	
+	public List<Sample> getSamplesInRangeToMe(List<Sample> samples, double radius, MeasureUnit mu) {
+        return this.location.getSamplesInRangeToMe(samples, radius, mu);
+    }
 
 	//GETTERS Y SETTERS (algunos se usan solo para los test)
 	public String getUser() {
@@ -117,6 +120,7 @@ public class Sample {
 
 	public void setState(ISampleState state) {
 		this.state = state;
+		
 	}
 
 	public boolean expertsCoincides(OpinionValue opinion) {
@@ -124,6 +128,16 @@ public class Sample {
 	
 	}
 	
+	public App getApp() {
+		return system;
+	}
+	public void setApp(App s) {
+		system = s;
+	}
+
+	public boolean expertsCoincides(OpinionValue opinion) {
+		return this.listLevel().stream().filter(r -> r.getOpinion() == opinion).count() >= 1;
 	
+	}
 	
 }

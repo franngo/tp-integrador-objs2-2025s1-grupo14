@@ -18,6 +18,7 @@ import org.mockito.stubbing.Answer;
 import Enums.EVinchuca;
 import Enums.OpinionValue;
 import mainPackage.App;
+import position.Position;
 import sample.Sample;
 import user.ChangeableUser;
 import user.*;
@@ -26,6 +27,7 @@ import user.PermanentExpert;
 public class BasicChangableUserTest {
 	App system;
 	ChangeableUser user;
+	Position pos = new Position(1,1, system);
 	
 	@BeforeEach
 	public void setUp() {
@@ -44,7 +46,7 @@ public class BasicChangableUserTest {
 		assertEquals("Basic", user.getExpertise());
 		user.setCantidadReviewsDated(21, LocalDate.now());
 		for(int x = 0; x < 11; x++) {
-			user.uploadSample(EVinchuca.Sordida, null);
+			user.uploadSample(EVinchuca.Sordida, pos);
 		}
 		
 		user.statCheck();
