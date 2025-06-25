@@ -1,5 +1,6 @@
 package sampleTest;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -39,6 +40,23 @@ public class ClosedStateSample {
 		
 		s1.addReview(OpinionValue.Chinche_Foliada, "Basic", "Felipe");
 		
+		assertEquals(3, s1.getReviews().size());
+	}
+	
+	@Test
+	public void ClosedSoloCuandoDosExpertosOpinanLoMismo() {
+		s1.addReview(OpinionValue.Chinche_Foliada, "Basic", "Pepe");
+		assertTrue(s1.getState() instanceof Open);
+		
+		s1.addReview(OpinionValue.ImagenPocoClara, "Expert", "Ana");
+		assertTrue(s1.getState() instanceof ExpertOnly);
+		
+		s1.addReview(OpinionValue.Phtia_Chinche, "Expert", "Maria Clara");
+		assertFalse(s1.getState() instanceof Closed);
+		
+		
+		s1.addReview(OpinionValue.Chinche_Foliada, "Basic", "Felipe");
+		assertTrue(s1.getState() instanceof ExpertOnly);
 		assertEquals(3, s1.getReviews().size());
 	}
 }
