@@ -1,25 +1,23 @@
 package sampleTest;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
 import Enums.*;
 import mainPackage.*;
+import position.Position;
 import sample.*;
 
 public class currentResultTest {
 	
-	
 	Sample s1 ;
-
+	Position pos = new Position(1,1, null); // la app no es importante aca
 	
 	@BeforeEach
 	public void setUp() {
-		s1 =  new Sample("Pepe", EVinchuca.Guasayana, null); //falta el location
+		s1 =  new Sample("Pepe", EVinchuca.Guasayana, pos); //falta el location
 		
 	}
 	

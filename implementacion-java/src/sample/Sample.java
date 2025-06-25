@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import position.*;
 import Enums.*;
+import mainPackage.App;
 import mainPackage.Review;
 
 
@@ -14,6 +15,7 @@ public class Sample {
 	private EVinchuca specie;
 	private Position location;
 	private ISampleState state;
+	private App system;
 	
 	private List<Review> reviews = new ArrayList<Review>();
 	
@@ -23,6 +25,7 @@ public class Sample {
 		this.specie = specie;
 		this.location = location;
 		state = new Open();
+		this.system = null;
 	}
 
 	public void addReview(OpinionValue opinion,String expertise, String userName) {
@@ -118,6 +121,13 @@ public class Sample {
 	public void setState(ISampleState state) {
 		this.state = state;
 		
+	}
+	
+	public App getApp() {
+		return system;
+	}
+	public void setApp(App s) {
+		system = s;
 	}
 
 	public boolean expertsCoincides(OpinionValue opinion) {

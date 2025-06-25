@@ -16,13 +16,15 @@ public class App {
 	public void addSample(Sample sample, Region region) {
 		//region.addSample(sample);
 		samples.add(sample);
+		sample.setApp(this);
 		region.notify("upload", sample);
 	}
 	
 	
 	//samples que no se encuentran en una region
 	public void addSample(Sample sample) {
-		samples.add(sample);;
+		samples.add(sample);
+		sample.setApp(this);
 	}
 	
 	public List<Sample> getSamples(){

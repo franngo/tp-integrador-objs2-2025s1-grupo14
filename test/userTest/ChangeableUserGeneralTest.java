@@ -12,12 +12,14 @@ import org.junit.jupiter.api.Test;
 import Enums.EVinchuca;
 import Enums.OpinionValue;
 import mainPackage.App;
+import position.Position;
 import sample.Sample;
 import user.*;
 
 public class ChangeableUserGeneralTest {
 	App system;
 	ChangeableUser user;
+	Position pos = new Position(1,1, system);
 	
 	@BeforeEach
 	public void setUp() {
@@ -33,19 +35,19 @@ public class ChangeableUserGeneralTest {
 	
 	@Test
 	public void guardaFechaDeUploadSample() {
-		user.uploadSample(EVinchuca.Sordida, null); //Poner position
+		user.uploadSample(EVinchuca.Sordida, pos); 
 		assertEquals(user.getUploadedSamplesDates().get(0), LocalDate.now());
 	}
 	
 	@Test
 	public void puedeUploadSampleTest() {
-		user.uploadSample(EVinchuca.Sordida, null); //Poner position
+		user.uploadSample(EVinchuca.Sordida, pos);
 		
 		assertEquals(1, system.getSamples().size()); 
 	}
 	@Test
 	public void primerReview() {
-		user.uploadSample(EVinchuca.Sordida, null); //Poner position
+		user.uploadSample(EVinchuca.Sordida, pos);
 		Sample sample = system.getSamples().get(0);
 		
 		assertEquals(OpinionValue.Vinchuca_Sordida, sample.getReviews().get(0).getOpinion());
@@ -53,7 +55,7 @@ public class ChangeableUserGeneralTest {
 	
 	@Test
 	public void noPuedeSubirReviewEnSuMuestra() {
-		user.uploadSample(EVinchuca.Sordida, null); //Poner position
+		user.uploadSample(EVinchuca.Sordida, pos);
 		Sample sample = system.getSamples().get(0);
 		assertEquals(1, sample.getReviews().size());
 		
@@ -63,7 +65,7 @@ public class ChangeableUserGeneralTest {
 	
 	@Test
 	public void noPuedeHacerReviewEnSampleQueYaHizo() {
-		Sample sampleReview = new Sample("Pepe", EVinchuca.Guasayana, null);
+		Sample sampleReview = new Sample("Pepe", EVinchuca.Guasayana, pos);
 		
 		user.addReview(sampleReview, OpinionValue.Chinche_Foliada);
 		assertEquals("Elias009", sampleReview.getReviews().get(0).getUserName());
