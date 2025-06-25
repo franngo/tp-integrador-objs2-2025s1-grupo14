@@ -11,15 +11,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RegionTest {
-	Position arielAzul = new Position(-36.5327, -59.9211);
+	Position arielAzul = new Position(-36.5327, -59.9211, null);
 	
-	Position bsAs = new Position(-34.6037, -58.3816); //a 256km de arielAzul
-	Position bahiaBlanca = new Position(-38.7155, -62.2615); //a 318km de arielAzul
-	Position montevideo = new Position(-34.7276, -56.2159); //a 390km de arielAzul
-	Position stgoDeChile = new Position(-33.4489, -70.6693); //a 1037km de arielAzul
-	Position stgoDelEstero = new Position(-27.79, -64.2628); //a 1054km de arielAzul
+	Position bsAs = new Position(-34.6037, -58.3816, null); //a 256km de arielAzul
+	Position bahiaBlanca = new Position(-38.7155, -62.2615, null); //a 318km de arielAzul
+	Position montevideo = new Position(-34.7276, -56.2159, null); //a 390km de arielAzul
+	Position stgoDeChile = new Position(-33.4489, -70.6693, null); //a 1037km de arielAzul
+	Position stgoDelEstero = new Position(-27.79, -64.2628, null); //a 1054km de arielAzul
 	
-	Region pba = new Region(arielAzul, 350, "Provincia de Buenos Aires");
+	Region pba = new Region(arielAzul, 350, "Provincia de Buenos Aires", null);
 	
 	@Test
 	public void getSamplesInRegionTest() {
@@ -46,12 +46,12 @@ public class RegionTest {
 	@Test
 	public void checkOverlapsTest() {
 		//Region que nace dentro de pba, por lo que se da solapamiento.
-		Region partidoBahiaBlanca = new Region(bahiaBlanca, 10, "Partido de Bahía Blanca");
+		Region partidoBahiaBlanca = new Region(bahiaBlanca, 10, "Partido de Bahía Blanca", null);
 		//Region que no nace dentro de pba, pero, por su radio, se solapa con esta.
-		Position rioDeLaPlata = new Position(-34.7849, -57.2300); //entre medio de CABA y Montevideo
-		Region rRioDeLaPlata = new Region(rioDeLaPlata, 123, "Río de La Plata");
+		Position rioDeLaPlata = new Position(-34.7849, -57.2300, null); //entre medio de CABA y Montevideo
+		Region rRioDeLaPlata = new Region(rioDeLaPlata, 123, "Río de La Plata", null);
 		//Region que no nace dentro de pba y con un radio tal que no se solapa con esta.
-		Region regionMetropolitanaChile = new Region(stgoDeChile, 121, "Región Metropolitana (Chile)");
+		Region regionMetropolitanaChile = new Region(stgoDeChile, 121, "Región Metropolitana (Chile)", null);
 		List<Region> rs = new ArrayList<Region>();
 		rs.add(partidoBahiaBlanca);
 		rs.add(rRioDeLaPlata);

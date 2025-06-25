@@ -15,11 +15,11 @@ import position.Position;
 import sample.Sample;
 
 public class SampleTest {
-	Position bsAs = new Position(-34.6037, -58.3816);
-	Position stgoDeChile = new Position(-33.4489, -70.6693); //a 1139km de bsAs
-	Position montevideo = new Position(-34.7276, -56.2159); //a 199km de bsAs
-	Position bahiaBlanca = new Position(-38.7155, -62.2615); //a 573km de bsAs
-	Position stgoDelEstero = new Position(-27.79, -64.2628); //a 941km de bsAs
+	Position bsAs = new Position(-34.6037, -58.3816, null);
+	Position stgoDeChile = new Position(-33.4489, -70.6693, null); //a 1139km de bsAs
+	Position montevideo = new Position(-34.7276, -56.2159, null); //a 199km de bsAs
+	Position bahiaBlanca = new Position(-38.7155, -62.2615, null); //a 573km de bsAs
+	Position stgoDelEstero = new Position(-27.79, -64.2628, null); //a 941km de bsAs
 
 	Sample sBsAs = new Sample("fidelElBravo", EVinchuca.Infestans, bsAs);
 	Sample sStgoDeChile = new Sample("marce678", EVinchuca.Infestans, stgoDeChile);
