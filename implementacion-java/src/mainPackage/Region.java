@@ -11,7 +11,7 @@ public class Region {
     private Position center;
     private double radius; //expresado en km
     private String name;
-    private List<Sample> samples = new ArrayList<Sample>();
+    //private List<Sample> samples = new ArrayList<Sample>();
     private EventManager events;
     
     
@@ -32,14 +32,14 @@ public class Region {
     			collect(Collectors.toList());
     }
 
-    public List<Sample> getSamplesInRegion() {
-    	return samples;
-        //return this.getCenter().getSamplesInRangeToMe(samples, this.getRadius(), new Kilometers());
+    public List<Sample> getSamplesInRegion(List<Sample> samples) {
+    	//return samples;
+        return this.getCenter().getSamplesInRangeToMe(samples, this.getRadius(), new Kilometers());
     }
     
     public void addSample(Sample sample) {
-    	samples.add(sample);
-    	this.notify("upload", sample);
+    	//samples.add(sample);
+    	//this.notify("upload", sample);
     }
     
     public void notify(String eventType, Sample sample) {
@@ -55,7 +55,7 @@ public class Region {
     }
     
     public List<Sample> getSamples(){
-    	return samples;
+    	return null;
     }
     
     public boolean isPosInside(Position position) {
