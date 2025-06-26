@@ -24,19 +24,23 @@ public class ExpertOnly implements ISampleState{
 	@Override
 	public boolean isValid(String expertise) {
 		if(expertise == "Basic") {
-			System.out.println("No pueden opinar usuarios Nivel Basico, Solo expertos");
+			System.out.println("No pueden opinar usuarios Nivel Basico, solo expertos");
 			return false;
 		}
 		return true;
 	}
 
 	@Override
-	public void addReview(String expertise, Sample sample,OpinionValue opinion) {
+	public void checkStateChange(String expertise, Sample sample,OpinionValue opinion) {
 		if(sample.expertsCoinciden(opinion)) {
 			this.changeState(sample);
-			System.out.println("Se cierran los comentarios ya opinaron dos expetos y esta verificada!");
+			System.out.println("Se cierran los comentarios. Ya coincidieron dos expertos y esta verificada!");
 		}
 	}
 
+	@Override
+	public String nivelDeVerificacion() {
+		return "votada";
+	}
 
 }

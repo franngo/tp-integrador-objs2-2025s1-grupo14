@@ -15,12 +15,17 @@ public class Open implements ISampleState{
 	}
 
 	@Override
-	public void addReview(String expertise, Sample sample, OpinionValue opinion) {
+	public void checkStateChange(String expertise, Sample sample, OpinionValue opinion) {
 		if(expertise.equalsIgnoreCase("Expert")) {
 			System.out.println("A partir de ahora opinan Expertos");
 			this.changeState(sample);
 		}
 		
+	}
+	
+	@Override
+	public String nivelDeVerificacion() {
+		return "votada";
 	}
 
 }

@@ -28,14 +28,14 @@ public class ChangeableUser extends User {
     }
 
     @Override
-    public void addReview(Sample sample, OpinionValue opinion) {
+    public void addReview(Sample sample, OpinionValue opinion, LocalDate fechaReview) {
     	/*
     	 * Verifica el esatdo y delega la tarea a su clase padre.
     	 */
         this.statCheck(); //para ver si se tiene que actualizar el state
-        super.addReview(sample, opinion);
+        super.addReview(sample, opinion, fechaReview);
         if(sample.puedeOpinar(name, this.getExpertise())) {
-    		this.uploadedReviewsDates();
+    		this.uploadReviewsDates(fechaReview);
         }
     }
 
@@ -55,8 +55,8 @@ public class ChangeableUser extends User {
     }
 
 	// @Override
-	protected void uploadedReviewsDates() {
-		uploadedReviewsDates.add(LocalDate.now());		
+	protected void uploadReviewsDates(LocalDate fechaReview) {
+		uploadedReviewsDates.add(fechaReview);		
 	}
 
 	public List<LocalDate> getUploadedSamplesDates() {
