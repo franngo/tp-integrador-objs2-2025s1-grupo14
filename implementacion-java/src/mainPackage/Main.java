@@ -29,8 +29,8 @@ public class Main {
 		Position posR = new Position(2,1, system);
 		Region rA = new Region(posR, 1000d, "Varela", EM);
 		
-		organizacion ONG1 = new organizacion("Ong1");
-		organizacion ONG2 = new organizacion("Ong2");
+		Organizacion ONG1 = new Organizacion("Ong1");
+		Organizacion ONG2 = new Organizacion("Ong2");
 
 		
 //		EM.suscribeUpload(ONG1);

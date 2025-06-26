@@ -3,10 +3,10 @@ package ar.edu.unq.poo2.tpintegrador.organizaciones;
 import mainPackage.Region;
 import sample.Sample;
 
-public class organizacion implements Iobserver{
+public class Organizacion implements Iobserver{
 	private String name;
 	
-	public organizacion(String name) {
+	public Organizacion(String name) {
 		this.name = name;
 	}
 	@Override
