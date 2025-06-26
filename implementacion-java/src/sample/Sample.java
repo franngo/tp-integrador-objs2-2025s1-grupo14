@@ -7,6 +7,7 @@ import position.*;
 import Enums.*;
 import mainPackage.App;
 import mainPackage.Review;
+import java.time.LocalDate;
 
 
 public class Sample {
@@ -15,28 +16,30 @@ public class Sample {
 	private EVinchuca specie;
 	private Position location;
 	private ISampleState state;
+	private LocalDate fechaCreacion;
 	private App system;
 	
 	private List<Review> reviews = new ArrayList<Review>();
 	
-	public Sample(String user, EVinchuca specie ,Position location ) {
+	public Sample(String user, EVinchuca specie ,Position location, LocalDate fechaCreacion) {
 		this.user = user;
 		this.photo = "photo.png"; //es la misma en todos. En este contexto no tiene importancia.
 		this.specie = specie;
 		this.location = location;
 		state = new Open();
+		this.fechaCreacion = fechaCreacion;
 		this.system = null;
 	}
 
-	public void addReview(OpinionValue opinion,String expertise, String userName) {
+	public void addReview(OpinionValue opinion,String expertise, String userName, LocalDate fechaReview) {
 		/*
 		 * Agrega la opion del usuario si el estado lo permite.
 		 */
 		
 		//Este condicional cumple la funcion de testear el cambio de estado sin tener que recurrir al usuario.
 		if(this.puedeOpinar(userName,expertise)) { //podria solo tener state.isValid(...param...)
-			state.addReview(expertise,this,opinion);
-			reviews.add(new Review(opinion, expertise, userName));
+			state.checkStateChange(expertise, this, opinion);
+			reviews.add(new Review(opinion, expertise, userName, fechaReview));
 		}
 	}
 	
@@ -55,7 +58,7 @@ public class Sample {
 		 */
 	}
 
-	public OpinionValue currentResult() {
+	public OpinionValue currentResult() { //filtro número 3 utilizado por el buscador
 		/*
 		 * Indica el resultado de la muestra actual, basandose en las opiniones que tiene.
 		 */
@@ -123,9 +126,18 @@ public class Sample {
 		
 	}
 	
+	public LocalDate getFechaCreacion() { //filtro número 1 utilizado por el buscador
+		return fechaCreacion;
+	}
+	
+	public void setFechaCreacion(LocalDate fechaCreacion) { //para testear el SearchEngine
+		this.fechaCreacion = fechaCreacion;
+	}
+	
 	public App getApp() {
 		return system;
 	}
+	
 	public void setApp(App s) {
 		system = s;
 	}
@@ -133,6 +145,18 @@ public class Sample {
 	public boolean expertsCoinciden(OpinionValue opinion) {
 		return this.listLevel().stream().filter(r -> r.getOpinion() == opinion).count() >= 1;
 	
+	}
+	
+	public LocalDate ultimaVotacion() { //filtro número 2 utilizado por el buscador
+		return reviews.get(reviews.size()-1).getFechaReview(); //agarramos la última review añadida, o sea, la más reciente
+	}
+	
+	public String nivelDeVerificacion() { //filtro número 4 utilizado por el buscador
+		return state.nivelDeVerificacion();
+	}
+	
+	public Review ultimaReview() { //para testear el SearchEngine
+		return reviews.get(reviews.size()-1);
 	}
 	
 }

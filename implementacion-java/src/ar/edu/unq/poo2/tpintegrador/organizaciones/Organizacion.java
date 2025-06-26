@@ -1,5 +1,6 @@
 package ar.edu.unq.poo2.tpintegrador.organizaciones;
 
+
 import Enums.TipoDeOrganizacion;
 import mainPackage.Region;
 import sample.Sample;
@@ -19,26 +20,27 @@ public class Organizacion implements Iobserver{
 		this.tipoONG = tipoONG;
 		this.employeesAmount = employeesAmount;
 	}
-	
+  
 	@Override
 	public void notifyValidation(Sample sample, Region region) {
 		//validationAction.nuevoEvento(this, region, sample);
 		System.out.println("Nueva muestra verificada: \nSample: " + sample + "\nRegion: " + region + "\nONG: " + name);
-		countValidation++;
+    countValidation++;
 	}
-
 
 	@Override
 	public void notifyUpload(Sample sample, Region region) {
 		//uploadAction.nuevoEvento(this, region, sample);
 		System.out.println("Nueva muestra subida: \nSample: " + sample + "\nRegion: " + region + "\nONG: " + name);
-		countUpload++;
+    countUpload++;
 	}
 	
 	public void setValidationAction(FuncionalidadExterna valitionFunc) {
-		validationAction = valitionFunc;
+		this.validationAction = valitionFunc;
 	}
+  
 	public void setUploadAction(FuncionalidadExterna uploadFunc) {
-		uploadAction = uploadFunc;
+		this.uploadAction = uploadFunc;
 	}
+  
 }

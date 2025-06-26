@@ -2,6 +2,8 @@ package sampleTest;
 
 import static org.junit.Assert.assertEquals;
 
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -30,8 +32,8 @@ public class SampleInRegion {
 	public void setUp() {
 		ong = new Organizacion("Pepe´s Comp.", TipoDeOrganizacion.Asistencia, 32);
 		pos = new Position(1,1,syst);
-		s1 = new Sample("Palito", EVinchuca.Sordida, pos);
-		s2 = new Sample("Anis", EVinchuca.Guasayana, new Position(32,124, syst));
+		s1 = new Sample("Palito", EVinchuca.Sordida, pos, LocalDate.now());
+		s2 = new Sample("Anis", EVinchuca.Guasayana, new Position(32,124, syst), LocalDate.now());
 		posCenter = new Position(2,1,syst);
 		events = new EventManager();
 		rA = new Region(posCenter, 1000d, "El Pais de las Maravillas", events);

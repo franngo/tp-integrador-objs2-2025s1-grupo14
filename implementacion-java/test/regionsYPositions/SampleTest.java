@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,11 +22,11 @@ public class SampleTest {
 	Position bahiaBlanca = new Position(-38.7155, -62.2615, null); //a 573km de bsAs
 	Position stgoDelEstero = new Position(-27.79, -64.2628, null); //a 941km de bsAs
 
-	Sample sBsAs = new Sample("fidelElBravo", EVinchuca.Infestans, bsAs);
-	Sample sStgoDeChile = new Sample("marce678", EVinchuca.Infestans, stgoDeChile);
-	Sample sMontevideo = new Sample("andrea2001", EVinchuca.Sordida, montevideo);
-	Sample sBahiaBlanca = new Sample("edgarErnesto4", EVinchuca.Guasayana, bahiaBlanca);
-	Sample sStgoDelEstero = new Sample("lucho234", EVinchuca.Infestans, stgoDelEstero);
+	Sample sBsAs = new Sample("fidelElBravo", EVinchuca.Infestans, bsAs, LocalDate.now());
+	Sample sStgoDeChile = new Sample("marce678", EVinchuca.Infestans, stgoDeChile, LocalDate.now());
+	Sample sMontevideo = new Sample("andrea2001", EVinchuca.Sordida, montevideo, LocalDate.now());
+	Sample sBahiaBlanca = new Sample("edgarErnesto4", EVinchuca.Guasayana, bahiaBlanca, LocalDate.now());
+	Sample sStgoDelEstero = new Sample("lucho234", EVinchuca.Infestans, stgoDelEstero, LocalDate.now());
 	
 	@Test
 	public void samplesInRangeTest() {

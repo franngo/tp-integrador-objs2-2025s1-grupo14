@@ -2,6 +2,8 @@ package sampleTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -17,15 +19,15 @@ public class currentResultTest {
 	
 	@BeforeEach
 	public void setUp() {
-		s1 =  new Sample("Pepe", EVinchuca.Guasayana, pos); //falta el location
+		s1 =  new Sample("Pepe", EVinchuca.Guasayana, pos, LocalDate.now()); //falta el location
 		
 	}
 	
 	@Test
 	public void basicAddReviews() {
-		s1.addReview(OpinionValue.Chinche_Foliada, "Basic", "Pepe");
-		s1.addReview(OpinionValue.ImagenPocoClara, "Basic", "Ana");
-		s1.addReview(OpinionValue.Chinche_Foliada, "Basic", "Felipe");
+		s1.addReview(OpinionValue.Chinche_Foliada, "Basic", "Pepe", LocalDate.now());
+		s1.addReview(OpinionValue.ImagenPocoClara, "Basic", "Ana", LocalDate.now());
+		s1.addReview(OpinionValue.Chinche_Foliada, "Basic", "Felipe", LocalDate.now());
 		
 		
 		assertEquals(3, s1.getReviews().size());
@@ -34,9 +36,9 @@ public class currentResultTest {
 	
 	@Test
 	public void ExpertAddReviews() {
-		s1.addReview(OpinionValue.Chinche_Foliada, "Basic", "Pepe");	
-		s1.addReview(OpinionValue.ImagenPocoClara, "Expert", "Ana");
-		s1.addReview(OpinionValue.Chinche_Foliada, "Basic", "Felipe");
+		s1.addReview(OpinionValue.Chinche_Foliada, "Basic", "Pepe", LocalDate.now());	
+		s1.addReview(OpinionValue.ImagenPocoClara, "Expert", "Ana", LocalDate.now());
+		s1.addReview(OpinionValue.Chinche_Foliada, "Basic", "Felipe", LocalDate.now());
 		
 		
 		assertEquals(2, s1.getReviews().size());
@@ -45,11 +47,11 @@ public class currentResultTest {
 	
 	@Test
 	public void CloseReview() {
-		s1.addReview(OpinionValue.Chinche_Foliada, "Basic", "Pepe");	
-		s1.addReview(OpinionValue.ImagenPocoClara, "Expert", "Ana");
-		s1.addReview(OpinionValue.ImagenPocoClara, "Expert", "Maria Clara");
+		s1.addReview(OpinionValue.Chinche_Foliada, "Basic", "Pepe", LocalDate.now());	
+		s1.addReview(OpinionValue.ImagenPocoClara, "Expert", "Ana", LocalDate.now());
+		s1.addReview(OpinionValue.ImagenPocoClara, "Expert", "Maria Clara", LocalDate.now());
 		
-		s1.addReview(OpinionValue.Chinche_Foliada, "Basic", "Felipe");
+		s1.addReview(OpinionValue.Chinche_Foliada, "Basic", "Felipe", LocalDate.now());
 		
 		assertEquals(3, s1.getReviews().size());
 		assertEquals(OpinionValue.ImagenPocoClara, s1.currentResult());

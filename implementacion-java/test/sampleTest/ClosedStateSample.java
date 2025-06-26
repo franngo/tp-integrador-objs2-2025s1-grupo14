@@ -4,6 +4,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,24 +23,24 @@ public class ClosedStateSample {
 	
 	@BeforeEach
 	public void setUp() {
-		s1 =  new Sample("Pepe", EVinchuca.Guasayana, null); //falta el location
+		s1 =  new Sample("Pepe", EVinchuca.Guasayana, null, LocalDate.now()); //falta el location
 		
 	}
 
 	
 	@Test
 	public void ClosedReview() {
-		s1.addReview(OpinionValue.Chinche_Foliada, "Basic", "Pepe");
+		s1.addReview(OpinionValue.Chinche_Foliada, "Basic", "Pepe", LocalDate.now());
 		assertTrue(s1.getState() instanceof Open);
 		
-		s1.addReview(OpinionValue.ImagenPocoClara, "Expert", "Ana");
+		s1.addReview(OpinionValue.ImagenPocoClara, "Expert", "Ana", LocalDate.now());
 		assertTrue(s1.getState() instanceof ExpertOnly);
 		
-		s1.addReview(OpinionValue.ImagenPocoClara, "Expert", "Maria Clara");
+		s1.addReview(OpinionValue.ImagenPocoClara, "Expert", "Maria Clara", LocalDate.now());
 		assertTrue(s1.getState() instanceof Closed);
 		
 		
-		s1.addReview(OpinionValue.Chinche_Foliada, "Basic", "Felipe");
+		s1.addReview(OpinionValue.Chinche_Foliada, "Basic", "Felipe", LocalDate.now());
 		
 		assertEquals(3, s1.getReviews().size());
 	}
@@ -47,24 +49,24 @@ public class ClosedStateSample {
 
 	public void NoCambiaDeEstadoPorqueLosExpertosNoOpinanLoMismoTest() {
 
-		s1.addReview(OpinionValue.Chinche_Foliada, "Basic", "Pepe");
+		s1.addReview(OpinionValue.Chinche_Foliada, "Basic", "Pepe", LocalDate.now());
 		assertTrue(s1.getState() instanceof Open);
 		
-		s1.addReview(OpinionValue.ImagenPocoClara, "Expert", "Ana");
+		s1.addReview(OpinionValue.ImagenPocoClara, "Expert", "Ana", LocalDate.now());
 		assertTrue(s1.getState() instanceof ExpertOnly);
 		
-		s1.addReview(OpinionValue.Phtia_Chinche, "Expert", "Maria Clara");
+		s1.addReview(OpinionValue.Phtia_Chinche, "Expert", "Maria Clara", LocalDate.now());
 
 		assertTrue(s1.getState() instanceof ExpertOnly);
 		
 		
-		s1.addReview(OpinionValue.Chinche_Foliada, "Basic", "Felipe");
+		s1.addReview(OpinionValue.Chinche_Foliada, "Basic", "Felipe", LocalDate.now());
 		
 
 		assertFalse(s1.getState() instanceof Closed);
 		
 		
-		s1.addReview(OpinionValue.Chinche_Foliada, "Basic", "Felipe");
+		s1.addReview(OpinionValue.Chinche_Foliada, "Basic", "Felipe", LocalDate.now());
 		assertTrue(s1.getState() instanceof ExpertOnly);
 
 	}

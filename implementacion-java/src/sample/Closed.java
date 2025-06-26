@@ -14,10 +14,14 @@ public class Closed implements ISampleState{
 		return false;
 	}
 
+	@Override 
+	public void checkStateChange(String expertise, Sample sample, OpinionValue opinion) {
+		//no hace nada porque este es el "estado final". No existe un cambio de estado a otro estado.
+	}
+	
 	@Override
-	public void addReview(String expertise, Sample sample, OpinionValue opinion) {
-
-		
+	public String nivelDeVerificacion() {
+		return "verificada";
 	}
 
 }
