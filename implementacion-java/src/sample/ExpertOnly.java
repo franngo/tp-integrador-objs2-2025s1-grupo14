@@ -2,8 +2,6 @@ package sample;
 
 
 import java.util.List;
-import java.util.stream.Collectors;
-
 import Enums.*;
 import mainPackage.Region;
 
@@ -32,7 +30,7 @@ public class ExpertOnly implements ISampleState{
 
 	@Override
 	public void addReview(String expertise, Sample sample,OpinionValue opinion) {
-		if(sample.expertsCoincides(opinion)) {
+		if(sample.expertsCoinciden(opinion)) {
 			this.changeState(sample);
 			System.out.println("Se cierran los comentarios ya opinaron dos expetos y esta verificada!");
 		}

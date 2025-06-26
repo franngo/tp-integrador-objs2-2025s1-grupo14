@@ -12,19 +12,21 @@ public class App {
 	private List<Region> regions = new ArrayList<Region>();
 	
 	
-	//samples en region x
-	public void addSample(Sample sample, Region region) {
-		//region.addSample(sample);
-		samples.add(sample);
-		sample.setApp(this);
-		region.notify("upload", sample);
-	}
-	
+//	//samples en region x
+//	public void addSample(Sample sample, Region region) {
+//		//region.addSample(sample);
+//		samples.add(sample);
+//		sample.setApp(this);
+//		//region.notify("upload", sample);
+//		sample.getLocation().getRegions(this).forEach(r -> r.notify("upload", sample));
+//	}
+//	
 	
 	//samples que no se encuentran en una region
 	public void addSample(Sample sample) {
 		samples.add(sample);
 		sample.setApp(this);
+		sample.getLocation().getRegions(this).forEach(r -> r.notify("upload", sample));
 	}
 	
 	public List<Sample> getSamples(){

@@ -122,11 +122,6 @@ public class Sample {
 		this.state = state;
 		
 	}
-
-	public boolean expertsCoincides(OpinionValue opinion) {
-		return this.listLevel().stream().filter(r -> r.getOpinion() == opinion).count() >= 1;
-	
-	}
 	
 	public App getApp() {
 		return system;
@@ -135,7 +130,7 @@ public class Sample {
 		system = s;
 	}
 
-	public boolean expertsCoincides(OpinionValue opinion) {
+	public boolean expertsCoinciden(OpinionValue opinion) {
 		return this.listLevel().stream().filter(r -> r.getOpinion() == opinion).count() >= 1;
 	
 	}

@@ -36,11 +36,7 @@ public class Region {
     	//return samples;
         return this.getCenter().getSamplesInRangeToMe(samples, this.getRadius(), new Kilometers());
     }
-    
-    public void addSample(Sample sample) {
-    	//samples.add(sample);
-    	//this.notify("upload", sample);
-    }
+
     
     public void notify(String eventType, Sample sample) {
     	events.notify(eventType, sample, this);
@@ -53,10 +49,7 @@ public class Region {
     public double getRadius() {
     	return this.radius;
     }
-    
-    public List<Sample> getSamples(){
-    	return null;
-    }
+
     
     public boolean isPosInside(Position position) {
     	double distanciaKm = position.getDistanceTo(center, new Kilometers());
