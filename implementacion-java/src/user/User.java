@@ -43,13 +43,19 @@ public abstract class User {
         }
     }
 
-    public void addReview(Sample sample, OpinionValue opinion, LocalDate fechaReview) {
+    //tenemos este con visibilidad reducida porque es el que accede uploadSample para que tanto la Sample como su Review inicial
+    //tengan la misma LocalDate. El de visibilidad public es el que no recibe una LocalDate y utiliza la actual.
+    protected void addReview(Sample sample, OpinionValue opinion, LocalDate fechaReview) { 
     	// solucion temploral, para que se puede agregar el LocalDate a Changeable usuario solo si se puede sube la review   	
     	
     	if(sample.puedeOpinar(name, this.getExpertise())) { 
     		sample.addReview(opinion, this.getExpertise(), this.getName(), fechaReview); 
     		//this.uploadedReviewsDates(); El expertOnly tambien la tiene pero no la usa.
     	}     
+    }
+    
+    public void addReview(Sample sample, OpinionValue opinion) {
+    	this.addReview(sample, opinion, LocalDate.now());     
     }
     
     

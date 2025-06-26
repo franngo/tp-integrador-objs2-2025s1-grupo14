@@ -45,7 +45,7 @@ public class UserPermatenExpertTest {
 		Sample sample = system.getSamples().get(0);
 		assertEquals(1, sample.getReviews().size());
 		
-		user.addReview(sample, OpinionValue.Phtia_Chinche, LocalDate.now());	
+		user.addReview(sample, OpinionValue.Phtia_Chinche);	
 		assertEquals(1, sample.getReviews().size());
 	}
 

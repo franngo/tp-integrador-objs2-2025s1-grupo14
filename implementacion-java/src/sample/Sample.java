@@ -130,6 +130,10 @@ public class Sample {
 		return fechaCreacion;
 	}
 	
+	public void setFechaCreacion(LocalDate fechaCreacion) { //para testear el SearchEngine
+		this.fechaCreacion = fechaCreacion;
+	}
+	
 	public App getApp() {
 		return system;
 	}
@@ -149,6 +153,10 @@ public class Sample {
 	
 	public String nivelDeVerificacion() { //filtro número 4 utilizado por el buscador
 		return state.nivelDeVerificacion();
+	}
+	
+	public Review ultimaReview() { //para testear el SearchEngine
+		return reviews.get(reviews.size()-1);
 	}
 	
 }
