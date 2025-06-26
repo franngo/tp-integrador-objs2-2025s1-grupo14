@@ -22,8 +22,8 @@ public class Main {
 
 		App system = new App();
 		Position pos = new Position(1,1, system);
-		Sample s1 = new Sample("PedroMatias", EVinchuca.Guasayana, pos);
-		Sample s2 = new Sample("Elias", EVinchuca.Infestans, pos);
+		Sample s1 = new Sample("PedroMatias", EVinchuca.Guasayana, pos, LocalDate.now());
+		Sample s2 = new Sample("Elias", EVinchuca.Infestans, pos, LocalDate.now());
 		
 		EventManager EM = new EventManager();
 		Position posR = new Position(2,1, system);
@@ -47,15 +47,15 @@ public class Main {
 		EM.suscribeValidation(ONG1);
 		
 
-		s1.addReview(OpinionValue.Chinche_Foliada, "Basic", "Pepe1");
-		s1.addReview(OpinionValue.Phtia_Chinche, "Expert", "Pepe2");
-		s1.addReview(OpinionValue.Chinche_Foliada, "Expert", "Pepe3");
-		s1.addReview(OpinionValue.Chinche_Foliada, "Expert", "Pepe45");
+		s1.addReview(OpinionValue.Chinche_Foliada, "Basic", "Pepe1",LocalDate.now());
+		s1.addReview(OpinionValue.Phtia_Chinche, "Expert", "Pepe2", LocalDate.now());
+		s1.addReview(OpinionValue.Chinche_Foliada, "Expert", "Pepe3", LocalDate.now());
+		s1.addReview(OpinionValue.Chinche_Foliada, "Expert", "Pepe45", LocalDate.now());
 
 		
-		s2.addReview(OpinionValue.Phtia_Chinche, "Expert", "Pepe2");
-		s2.addReview(OpinionValue.Chinche_Foliada, "Expert", "Pepe3");
-		s2.addReview(OpinionValue.Chinche_Foliada, "Expert", "Pepe45");
+		s2.addReview(OpinionValue.Phtia_Chinche, "Expert", "Pepe2", LocalDate.now());
+		s2.addReview(OpinionValue.Chinche_Foliada, "Expert", "Pepe3", LocalDate.now());
+		s2.addReview(OpinionValue.Chinche_Foliada, "Expert", "Pepe45", LocalDate.now());
 
 	}
 }
