@@ -26,6 +26,7 @@ public class searchEngineTest {
 	PermanentExpert sergio = new PermanentExpert("sergioCASLA", system);
 	PermanentExpert andrea = new PermanentExpert("andreaCAI", system);
 	Position pos = new Position(1,1, system);
+	SearchEngine serEng = new SearchEngine();
 	
 	@BeforeEach
 	public void setUp() {
@@ -65,21 +66,98 @@ public class searchEngineTest {
 	}
 	
 	@Test
-	public void buscar() {
-		SearchEngine serEng = new SearchEngine();
+	public void buscarCaso1() {
 		List<LogicalOperator> logOps = new ArrayList<LogicalOperator>();
 		logOps.add(LogicalOperator.Or);
 		logOps.add(LogicalOperator.Or);
 		logOps.add(LogicalOperator.Or);
+		Sample votada = system.getSamples().get(0);
+		Sample verificada = system.getSamples().get(1); 
+		Sample votada2 = system.getSamples().get(2);
+		Sample votada3 = system.getSamples().get(3);
+		Sample verificada2 = system.getSamples().get(4); 
+		
 		List<Sample> results = serEng.buscar(system.getSamples(), LocalDate.of(2017, 1, 1) , LocalDate.of(2020, 1, 1), 
 				OpinionValue.Vinchuca_Sordida, "votada", logOps);
 		//cumplen: verificada - votada - votada 3 - votada 2
 		assertEquals(4, results.size());
+		assertTrue(results.contains(votada));
+		assertTrue(results.contains(votada2));
+		assertTrue(results.contains(votada3));
+		assertTrue(results.contains(verificada));
+		assertFalse(results.contains(verificada2));
 	}
 	
-	/*
- * public List<Sample> buscar(List<Sample> samples, LocalDate fechaCreacion, LocalDate fechaUltVot, OpinionValue tipoDetectado,
-		String nivelDeVerificacion, List<LogicalOperator> operators) {
-	 */
+	@Test
+	public void buscarCaso2() {
+		List<LogicalOperator> logOps = new ArrayList<LogicalOperator>();
+		logOps.add(LogicalOperator.And);
+		Sample votada = system.getSamples().get(0);
+		Sample verificada = system.getSamples().get(1); 
+		Sample votada2 = system.getSamples().get(2);
+		Sample votada3 = system.getSamples().get(3);
+		Sample verificada2 = system.getSamples().get(4); 
+		
+		List<Sample> results = serEng.buscar(system.getSamples(), null , LocalDate.of(2019, 1, 1), 
+				OpinionValue.Vinchuca_Sordida, null, logOps);
+		//cumplen criterio 1: votada - verificada - votada3
+		//cumplen criterio 2: votada - votada2
+		//cumplen todo: votada
+		assertEquals(1, results.size());
+		assertTrue(results.contains(votada));
+		assertFalse(results.contains(votada2));
+		assertFalse(results.contains(votada3));
+		assertFalse(results.contains(verificada));
+		assertFalse(results.contains(verificada2));
+	}
+	
+	@Test
+	public void buscarCaso3() {
+		List<LogicalOperator> logOps = new ArrayList<LogicalOperator>();
+		logOps.add(LogicalOperator.Or);
+		logOps.add(LogicalOperator.And);
+		Sample votada = system.getSamples().get(0);
+		Sample verificada = system.getSamples().get(1); 
+		Sample votada2 = system.getSamples().get(2);
+		Sample votada3 = system.getSamples().get(3);
+		Sample verificada2 = system.getSamples().get(4); 
+		
+		List<Sample> results = serEng.buscar(system.getSamples(), LocalDate.of(2017, 1, 1) , LocalDate.of(2019, 1, 1), 
+				null, "verificada", logOps);
+		//cumplen criterio 1: verificada
+		//cumplen criterio 2: votada - verificada - votada3
+		//primer or: votada - verificada - votada3
+		//cumple criterio 3: verificada - verificada2
+		//cumplen todo: verificada
+		assertEquals(1, results.size());
+		assertFalse(results.contains(votada));
+		assertFalse(results.contains(votada2));
+		assertFalse(results.contains(votada3));
+		assertTrue(results.contains(verificada));
+		assertFalse(results.contains(verificada2));
+	}
+	
+	@Test
+	public void buscarCasoSinResultados() {
+		List<LogicalOperator> logOps = new ArrayList<LogicalOperator>();
+		logOps.add(LogicalOperator.And);
+		Sample votada = system.getSamples().get(0);
+		Sample verificada = system.getSamples().get(1); 
+		Sample votada2 = system.getSamples().get(2);
+		Sample votada3 = system.getSamples().get(3);
+		Sample verificada2 = system.getSamples().get(4); 
+		
+		List<Sample> results = serEng.buscar(system.getSamples(), LocalDate.of(2018, 1, 1) , LocalDate.of(2020, 1, 1), 
+				null, null, logOps);
+		//cumplen criterio 1: verificada
+		//cumplen criterio 2: votada - votada3
+		//cumplen todo: ninguna
+		assertEquals(0, results.size());
+		assertFalse(results.contains(votada));
+		assertFalse(results.contains(votada2));
+		assertFalse(results.contains(votada3));
+		assertFalse(results.contains(verificada));
+		assertFalse(results.contains(verificada2));
+	}
 	
 }

@@ -18,23 +18,22 @@ public class SearchEngine {
 	public List<Sample> buscar(List<Sample> samples, LocalDate fechaCreacion, LocalDate fechaUltVot, OpinionValue tipoDetectado,
 			String nivelDeVerificacion, List<LogicalOperator> operators) {
 		
-		Stream<Sample> ss = samples.stream();
 		Set<Sample> ss1 = new HashSet<Sample>();
 		Set<Sample> ss2 = new HashSet<Sample>();
 		Set<Sample> ss3 = new HashSet<Sample>();
 		Set<Sample> ss4 = new HashSet<Sample>();
 		
 		if(fechaCreacion != null) {
-			ss1= ss.filter((s) -> s.getFechaCreacion().isAfter(fechaCreacion)).collect(Collectors.toSet()); //si es incluído fechaCreacion, le hago .minusDays(1)
+			ss1= samples.stream().filter((s) -> s.getFechaCreacion().isAfter(fechaCreacion)).collect(Collectors.toSet()); //si es incluído fechaCreacion, le hago .minusDays(1)
 		}
 		if(fechaUltVot != null) {
-			ss2= ss.filter((s) -> s.ultimaVotacion().isAfter(fechaUltVot)).collect(Collectors.toSet());
+			ss2= samples.stream().filter((s) -> s.ultimaVotacion().isAfter(fechaUltVot)).collect(Collectors.toSet());
 		}
 		if(tipoDetectado != null) {
-			ss3= ss.filter((s) -> s.currentResult().equals(tipoDetectado)).collect(Collectors.toSet());
+			ss3= samples.stream().filter((s) -> s.currentResult().equals(tipoDetectado)).collect(Collectors.toSet());
 		}
 		if(nivelDeVerificacion != null) {
-			ss4= ss.filter((s) -> s.nivelDeVerificacion().equals(nivelDeVerificacion)).collect(Collectors.toSet());
+			ss4= samples.stream().filter((s) -> s.nivelDeVerificacion().equals(nivelDeVerificacion)).collect(Collectors.toSet());
 		}
 		
 		List<Set<Sample>> sets= Stream.of(ss1, ss2, ss3, ss4).filter((smps) -> !(smps.isEmpty()) ).collect(Collectors.toList()); //sets NO NULOS
