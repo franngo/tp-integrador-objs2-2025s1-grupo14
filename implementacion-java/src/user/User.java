@@ -33,14 +33,9 @@ public abstract class User {
         //El paso funciona en orden, E1(a,b,c) y E2(1,2,3) => E1.a pasa a E2.1. en el orden en que se define      
         this.addReview(sample, OpinionValue.values()[specie.ordinal()]); 
         
-        if(location.getRegions(system).size() > 0) {
-        //Agrega el sample a la App
-	        for(Region r : location.getRegions(system)){
-	        	system.addSample(sample, r);
-	        }
-        } else {
-        	system.addSample(sample);
-        }
+
+	       system.addSample(sample);
+
     }
 
     public void addReview(Sample sample, OpinionValue opinion) {
@@ -53,10 +48,6 @@ public abstract class User {
     }
     
     
-    //va en otro lado, no tiene sentido que se tenga que conocer a una sample x para crear otra sample.
-    public Sample sampleFactory(EVinchuca specie, Position location) {
-    	return new Sample(name,specie,location);
-    }
     
  //   protected abstract void uploadedReviewsDates();
 	abstract public String getExpertise();
