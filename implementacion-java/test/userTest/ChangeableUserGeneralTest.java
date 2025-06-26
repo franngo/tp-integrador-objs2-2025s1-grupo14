@@ -59,18 +59,18 @@ public class ChangeableUserGeneralTest {
 		Sample sample = system.getSamples().get(0);
 		assertEquals(1, sample.getReviews().size());
 		
-		user.addReview(sample, OpinionValue.Phtia_Chinche);	
+		user.addReview(sample, OpinionValue.Phtia_Chinche, LocalDate.now());	
 		assertEquals(1, sample.getReviews().size());
 	}
 	
 	@Test
 	public void noPuedeHacerReviewEnSampleQueYaHizo() {
-		Sample sampleReview = new Sample("Pepe", EVinchuca.Guasayana, pos);
+		Sample sampleReview = new Sample("Pepe", EVinchuca.Guasayana, pos, LocalDate.now());
 		
-		user.addReview(sampleReview, OpinionValue.Chinche_Foliada);
+		user.addReview(sampleReview, OpinionValue.Chinche_Foliada, LocalDate.now());
 		assertEquals("Elias009", sampleReview.getReviews().get(0).getUserName());
 		
-		user.addReview(sampleReview, OpinionValue.ImagenPocoClara);
+		user.addReview(sampleReview, OpinionValue.ImagenPocoClara, LocalDate.now());
 		//assertEquals("Elias009", sampleReview.getReviews().get(1).getUserName()); fuera de largo
 		assertEquals(1, sampleReview.getReviews().size());
 	}

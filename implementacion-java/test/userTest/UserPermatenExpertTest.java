@@ -2,6 +2,7 @@ package userTest;
 
 import static org.junit.Assert.assertEquals;
 
+import java.time.LocalDate;
 
 import org.junit.jupiter.api.*;
 
@@ -44,7 +45,7 @@ public class UserPermatenExpertTest {
 		Sample sample = system.getSamples().get(0);
 		assertEquals(1, sample.getReviews().size());
 		
-		user.addReview(sample, OpinionValue.Phtia_Chinche);	
+		user.addReview(sample, OpinionValue.Phtia_Chinche, LocalDate.now());	
 		assertEquals(1, sample.getReviews().size());
 	}
 

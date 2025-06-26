@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import Enums.EVinchuca;
 
 import java.util.List;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import position.*;
 import sample.*;
@@ -53,10 +54,10 @@ public class PositionTest {
 	@Test
 	public void samplesInRangeTest() {
 		List <Sample> ss = new ArrayList<Sample>();
-		Sample sStgoDeChile = new Sample("marce678", EVinchuca.Infestans, stgoDeChile);
-		Sample sMontevideo = new Sample("andrea2001", EVinchuca.Sordida, montevideo);
-		Sample sBahiaBlanca = new Sample("edgarErnesto4", EVinchuca.Guasayana, bahiaBlanca);
-		Sample sStgoDelEstero = new Sample("lucho234", EVinchuca.Infestans, stgoDelEstero);
+		Sample sStgoDeChile = new Sample("marce678", EVinchuca.Infestans, stgoDeChile, LocalDate.now());
+		Sample sMontevideo = new Sample("andrea2001", EVinchuca.Sordida, montevideo, LocalDate.now());
+		Sample sBahiaBlanca = new Sample("edgarErnesto4", EVinchuca.Guasayana, bahiaBlanca, LocalDate.now());
+		Sample sStgoDelEstero = new Sample("lucho234", EVinchuca.Infestans, stgoDelEstero, LocalDate.now());
 		ss.add(sStgoDeChile);
 		ss.add(sMontevideo);
 		ss.add(sBahiaBlanca);
