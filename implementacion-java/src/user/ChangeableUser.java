@@ -69,7 +69,7 @@ public class ChangeableUser extends User {
 	
 	
 	//para calcular los cambios de estado
-	public double cantidadDeFechasEntreDias(List<LocalDate> dates, int days) {
+	protected double cantidadDeFechasEntreDias(List<LocalDate> dates, int days) {
 		/*
 		 * Devuelve la cantidad de dates en una lista que estan entre n(days) dias antes de la fecha de hoy.
 		 */
