@@ -12,27 +12,23 @@ public class SearchEngine {
 	 */
 	public List<Sample> buscar(List<Sample> samples, LocalDate fechaCreacion, LocalDate fechaUltVot, OpinionValue tipoDetectado,
 			String nivelDeVerificacion) {
-		/*
-		Stream<Sample> ss = samples.stream().filter((s) -> 
-			(fechaCreacion != null && s.getFechaCreacion().isAfter(fechaCreacion)) && 
-				s.ultimaVotacion().isAfter(fechaUltVot) &&
-				s.currentResult().equals(tipoDetectado) &&
-				s.nivelDeVerificacion().equals(nivelDeVerificacion) );
-		return ss.collect(Collectors.toList());
-		*/
 		Stream<Sample> ss = samples.stream();
+		Stream<Sample> ss1 = Stream.empty();
+		Stream<Sample> ss2 = Stream.empty();
+		Stream<Sample> ss3 = Stream.empty();
+		Stream<Sample> ss4 = Stream.empty();
 		if(fechaCreacion != null) {
-			ss.filter((s) -> s.getFechaCreacion().isAfter(fechaCreacion));
+			ss1= ss.filter((s) -> s.getFechaCreacion().isAfter(fechaCreacion)); //si es incluído fechaCreacion, le hago .minusDays(1)
 		}
 		if(fechaUltVot != null) {
-			ss.filter((s) -> s.ultimaVotacion().isAfter(fechaUltVot));
+			ss2= ss.filter((s) -> s.ultimaVotacion().isAfter(fechaUltVot));
 		}
 		if(tipoDetectado != null) {
-			ss.filter((s) -> s.currentResult().equals(tipoDetectado));
+			ss3= ss.filter((s) -> s.currentResult().equals(tipoDetectado));
 		}
 		if(nivelDeVerificacion != null) {
-			ss.filter((s) -> s.nivelDeVerificacion().equals(nivelDeVerificacion));
+			ss4= ss.filter((s) -> s.nivelDeVerificacion().equals(nivelDeVerificacion));
 		}
-		return ss.collect(Collectors.toList());
+		return Stream.of(ss1, ss2, ss3, ss4).flatMap((smps) -> smps).collect(Collectors.toList()); //de esta forma, son todos OR
 	}
 }
