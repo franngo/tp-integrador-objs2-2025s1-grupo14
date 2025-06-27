@@ -1,20 +1,22 @@
 package mainPackage;
 
 import Enums.OpinionValue;
+import user.User;
+
 import java.time.LocalDate;
 
 public class Review {
 	
 	private OpinionValue opinion;
 	private String expertise;
-	private String userName;
+	private User user;
 	private LocalDate fechaReview;
 	
 	
-	public Review(OpinionValue opinion, String expertise, String userName, LocalDate fechaReview) {
+	public Review(OpinionValue opinion,User user, LocalDate fechaReview) {
 		this.opinion = opinion;
-		this.expertise = expertise;
-		this.userName = userName;
+		this.expertise = user.getExpertise();
+		this.user = user;
 		this.fechaReview = fechaReview;
 	}
 
@@ -26,8 +28,8 @@ public class Review {
 		return expertise;
 	}
 
-	public String getUserName() {
-		return userName;
+	public User getUser() {
+		return user;
 	}
 	
 	public LocalDate getFechaReview() {

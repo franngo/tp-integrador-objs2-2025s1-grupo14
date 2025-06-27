@@ -28,7 +28,7 @@ public class ChangeableUser extends User {
     }
 
     @Override
-    public void addReview(Sample sample, OpinionValue opinion, LocalDate fechaReview) {
+    public void addReview(Sample sample, OpinionValue opinion) {
     	/*
     	 * Verifica el esatdo y delega la tarea a su clase padre.
     	 */

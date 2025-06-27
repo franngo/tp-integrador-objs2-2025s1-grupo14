@@ -9,13 +9,13 @@ public class ExpertOnly implements ISampleState{
 
 	@Override
 	public void changeState(Sample sample) {
-		if(sample.getApp() != null) {
-			List<Region> reg = sample.getLocation().getRegions(sample.getLocation().getApp());
-			if(reg.stream().map(r -> r.getSamplesInRegion(sample.getLocation().getApp().getSamples())).flatMap(s -> s.stream()).toList().contains(sample)){	
-				sample.getLocation().getRegions(sample.getLocation().getApp()).stream().forEach(r -> r.notify("validation", sample));
-			}
-		}
-		sample.setState(new Closed());
+//		if(sample.getApp() != null) {
+//			List<Region> reg = sample.getLocation().getRegions(sample.getLocation().getApp());
+//			if(reg.stream().map(r -> r.getSamplesInRegion(sample.getLocation().getApp().getSamples())).flatMap(s -> s.stream()).toList().contains(sample)){	
+//				sample.getLocation().getRegions(sample.getLocation().getApp()).stream().forEach(r -> r.notify("validation", sample));
+//			}
+//		}
+//		sample.setState(new Closed());
 		
 	}
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import position.*;
+import user.User;
 import Enums.*;
 import mainPackage.App;
 import mainPackage.Review;
@@ -11,60 +12,61 @@ import java.time.LocalDate;
 
 
 public class Sample {
-	private String user;
+	private User user;
 	private String photo;
 	private EVinchuca specie;
-	private Position location;
 	private ISampleState state;
+	private Position location;
 	private LocalDate fechaCreacion;
 	private App system;
+	private OpinionValue currResult;
 	
 	private List<Review> reviews = new ArrayList<Review>();
 	
-	public Sample(String user, EVinchuca specie ,Position location, LocalDate fechaCreacion) {
+	
+	public Sample(User user, EVinchuca specie ,Position location, App system) {
 		this.user = user;
 		this.photo = "photo.png"; //es la misma en todos. En este contexto no tiene importancia.
 		this.specie = specie;
 		this.location = location;
-		state = new Open();
-		this.fechaCreacion = fechaCreacion;
-		this.system = null;
+		this.system = system;
+		currResult =  OpinionValue.values()[specie.ordinal()];
+	
+	
 	}
 
-	public void addReview(OpinionValue opinion,String expertise, String userName, LocalDate fechaReview) {
+	public void addReview(OpinionValue opinion, User user, LocalDate fechaReview) {
 		/*
 		 * Agrega la opion del usuario si el estado lo permite.
 		 */
 		
 		//Este condicional cumple la funcion de testear el cambio de estado sin tener que recurrir al usuario.
-		if(this.puedeOpinar(userName,expertise)) { //podria solo tener state.isValid(...param...)
-			state.checkStateChange(expertise, this, opinion);
-			reviews.add(new Review(opinion, expertise, userName, fechaReview));
+		if(this.puedeOpinar(user)) { //podria solo tener state.isValid(...param...)
+			state.checkStateChange(user.getExpertise(), this, opinion);
+			reviews.add(new Review(opinion, user, fechaReview));
 		}
 	}
 	
 	
-	public boolean puedeOpinar(String userName, String expertise) {
+	public boolean puedeOpinar(User user) {
 		/*
 		 * Verifica si el usuario puede opinar en esta muestra, dependiendo su estado y que tenga haya una opinion de el.
 		 */
-		return  state.isValid(expertise) &&
+		return  state.isValid(user.getExpertise()) &&
 				reviews.stream()
-				.map(r -> r.getUserName())
-				.filter(user -> user.equalsIgnoreCase(userName))
-				.toList().size() != 1; // se puede cambiar la forma pero no entiendí el noneMatch().
-		/*
-		 * Si es 0 no es su Sample, puede opinar. Si es 1 o ya opino o es su Sample.
-		 */
+				.map(r -> r.getUser()).noneMatch(u -> u == user);
+
 	}
 
 	public OpinionValue currentResult() { //filtro número 3 utilizado por el buscador
 		/*
 		 * Indica el resultado de la muestra actual, basandose en las opiniones que tiene.
 		 */
+		//CAMBIAR Y HACELO QUE DEPENDE DEL ESTADO, TRABAJAR CON STREAMS, CUARDAS EL CURRENTRESULT PARA QUE NO LO TENGA QUE CALCULAR CADA VEZ QUE SE PREGUNTA
+		// SI EL ESTADO ES CLOSED EL CURRENT RESULT YA NO PUEDE CAMBIAR, NO VALE LA PENA CALCULARLO.
 		double max = 0;
 		double curr = 0;
-		OpinionValue maxOpinion = OpinionValue.Ninguna;
+		OpinionValue currResult = OpinionValue.Ninguna;
 		
 		for(OpinionValue ov : OpinionValue.values()) {
 			curr = Collections.frequency(
@@ -74,14 +76,14 @@ public class Sample {
 			
 			if(max < curr) {
 				max = curr;
-				maxOpinion = ov;
+				currResult = ov;
 			} else if (max == curr) {
-				maxOpinion = OpinionValue.Ninguna; //resultado de empate
+				currResult = OpinionValue.Ninguna; //resultado de empate
 			}
 			
-			
 		}
-		return maxOpinion;
+		
+		return currResult;
 	
 	}
 	
@@ -96,12 +98,9 @@ public class Sample {
 		return reviews;
 	}
 	
-	public List<Sample> getSamplesInRangeToMe(List<Sample> samples, double radius, MeasureUnit mu) {
-        return this.location.getSamplesInRangeToMe(samples, radius, mu);
-    }
 
 	//GETTERS Y SETTERS (algunos se usan solo para los test)
-	public String getUser() {
+	public User getUser() {
 		return user;
 	}
 
@@ -138,14 +137,11 @@ public class Sample {
 		return system;
 	}
 	
-	public void setApp(App s) {
-		system = s;
-	}
-
 	public boolean expertsCoinciden(OpinionValue opinion) {
 		return this.listLevel().stream().filter(r -> r.getOpinion() == opinion).count() >= 1;
 	
 	}
+	
 	
 	public LocalDate ultimaVotacion() { //filtro número 2 utilizado por el buscador
 		return reviews.get(reviews.size()-1).getFechaReview(); //agarramos la última review añadida, o sea, la más reciente

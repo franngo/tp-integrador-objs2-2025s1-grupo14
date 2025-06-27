@@ -11,27 +11,16 @@ public class App {
 	private List<Sample> samples = new ArrayList<Sample>();
 	private List<Region> regions = new ArrayList<Region>();
 	
-	
-//	//samples en region x
-//	public void addSample(Sample sample, Region region) {
-//		//region.addSample(sample);
-//		samples.add(sample);
-//		sample.setApp(this);
-//		//region.notify("upload", sample);
-//		sample.getLocation().getRegions(this).forEach(r -> r.notify("upload", sample));
-//	}
-//	
-	
 	//samples que no se encuentran en una region
 	public void addSample(Sample sample) {
-		samples.add(sample);
-		sample.setApp(this);
-		sample.getLocation().getRegions(this).forEach(r -> r.notify("upload", sample));
+		regions.forEach(r -> r.addSample(sample));
 	}
 	
+	
 	public List<Sample> getSamples(){
-		return samples;
-		//return regions.stream().map(r -> r.getSamplesInRegion()).flatMap(s -> s.stream()).collect(Collectors.toList());
+		List<Sample> samplesTotal = regions.stream().map(r -> r.getSamples()).flatMap(s -> s.stream()).collect(Collectors.toList());
+		samplesTotal.addAll(samples);
+		return samplesTotal;
 	}
 	
 	public void addRegios(Region region) {
@@ -42,4 +31,3 @@ public class App {
 		return regions;
 	}
 }
-//PRUEBA PARA EL PULL REQUEST
