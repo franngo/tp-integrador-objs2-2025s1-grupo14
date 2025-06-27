@@ -1,13 +1,16 @@
 package sample;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import position.*;
 import user.User;
 import Enums.*;
-import mainPackage.App;
-import mainPackage.Review;
+import mainPackage.*;
+
+
 import java.time.LocalDate;
 
 
@@ -30,24 +33,25 @@ public class Sample {
 		this.specie = specie;
 		this.location = location;
 		this.system = system;
+		state = new Open();
 		currResult =  OpinionValue.values()[specie.ordinal()];
 	
 	
 	}
 
-	public void addReview(OpinionValue opinion, User user, LocalDate fechaReview) {
+	public void addReview(OpinionValue opinion, User user) {
 		/*
-		 * Agrega la opion del usuario si el estado lo permite.
+		 * Agrega la opion del usuario
 		 */
 		
-		//Este condicional cumple la funcion de testear el cambio de estado sin tener que recurrir al usuario.
-		if(this.puedeOpinar(user)) { //podria solo tener state.isValid(...param...)
 			state.checkStateChange(user.getExpertise(), this, opinion);
-			reviews.add(new Review(opinion, user, fechaReview));
-		}
+			reviews.add(new Review(opinion, user, LocalDate.now()));
+			currResult = state.result(this);
+
 	}
 	
-	
+	//para los test, sin tener usuario
+
 	public boolean puedeOpinar(User user) {
 		/*
 		 * Verifica si el usuario puede opinar en esta muestra, dependiendo su estado y que tenga haya una opinion de el.
@@ -64,40 +68,62 @@ public class Sample {
 		 */
 		//CAMBIAR Y HACELO QUE DEPENDE DEL ESTADO, TRABAJAR CON STREAMS, CUARDAS EL CURRENTRESULT PARA QUE NO LO TENGA QUE CALCULAR CADA VEZ QUE SE PREGUNTA
 		// SI EL ESTADO ES CLOSED EL CURRENT RESULT YA NO PUEDE CAMBIAR, NO VALE LA PENA CALCULARLO.
-		double max = 0;
-		double curr = 0;
-		OpinionValue currResult = OpinionValue.Ninguna;
+//		double max = 0;
+//		double curr = 0;
+//		OpinionValue currResult = OpinionValue.Ninguna;
 		
-		for(OpinionValue ov : OpinionValue.values()) {
-			curr = Collections.frequency(
-					this.listLevel().stream().
-					map(r -> r.getOpinion()).toList()
-					, ov);
-			
-			if(max < curr) {
-				max = curr;
-				currResult = ov;
-			} else if (max == curr) {
-				currResult = OpinionValue.Ninguna; //resultado de empate
-			}
-			
-		}
+//		currResult = state.result(this);
+	
+//		for(OpinionValue ov : OpinionValue.values()) {
+//			curr = Collections.frequency(
+//					this.listLevel(state.getLevel()).stream().
+//					map(r -> r.getOpinion()).toList()
+//					, ov);
+//			
+//			if(max < curr) {
+//				max = curr;
+//				currResult = ov;
+//			} else if (max == curr) {
+//				currResult = OpinionValue.Ninguna; //resultado de empate
+//			}
+//			
+//		}
 		
 		return currResult;
 	
 	}
 	
-	
-	public List<Review> listLevel() {
-		/*
-		 * Devuelve una lista de Opiniones(Review) que hayan hecho los expertos si el state es ExpertOnly, sino devuelve la lista de todas las opiniones.
-		 */
-		if(state instanceof ExpertOnly || state instanceof Closed) {
-			return reviews.stream().filter(r -> r.getExpertise().equalsIgnoreCase("Expert")).toList();
-		}
-		return reviews;
+	public OpinionValue result(EUserState expertise) {
+		Map<Long, OpinionValue> freq = new HashMap<Long, OpinionValue>();
+			for(OpinionValue ov : OpinionValue.values()) {
+				freq.put(this.listLevel(expertise).stream().map(r -> r.getOpinion()).filter(o -> o == ov).count(), ov);
+			}
+		Long maxFreq =  freq.keySet().stream().max(Long::compare).get();
+		return freq.get(maxFreq);
 	}
 	
+	public boolean expertsCoinciden(OpinionValue opinion) {
+		return this.listLevel(EUserState.Expert).stream().anyMatch(r -> r.getOpinion() == opinion);
+		
+	}
+	
+	public List<Review> listLevel(EUserState expertice) {
+		/*
+		 * Devuelve una lista de Opiniones(Review) que tengan el expertice dado.
+		 */
+		if(expertice == EUserState.Basic) {
+			return reviews;
+		}
+		
+		return reviews.stream().filter(r -> r.getExpertise() == expertice).toList();
+
+	}
+	
+	public void notifyValidation() {
+		List<Region> regionsSample = system.getRegions().stream()
+				.filter(r -> r.getSamples().contains(this)).toList();
+		regionsSample.forEach(r -> r.notify("validation", this));
+	}
 
 	//GETTERS Y SETTERS (algunos se usan solo para los test)
 	public User getUser() {
@@ -137,22 +163,30 @@ public class Sample {
 		return system;
 	}
 	
-	public boolean expertsCoinciden(OpinionValue opinion) {
-		return this.listLevel().stream().filter(r -> r.getOpinion() == opinion).count() >= 1;
-	
+
+	//Para test
+	public void addReview(OpinionValue opinion, User user, LocalDate date) {
+		/*
+		 * Agrega la opion del usuario de una fecha espesifica, para probar los test
+		 */
+		
+			state.checkStateChange(user.getExpertise(), this, opinion);
+			reviews.add(new Review(opinion, user, date));
+
 	}
+
 	
-	
-	public LocalDate ultimaVotacion() { //filtro número 2 utilizado por el buscador
-		return reviews.get(reviews.size()-1).getFechaReview(); //agarramos la última review añadida, o sea, la más reciente
-	}
-	
-	public String nivelDeVerificacion() { //filtro número 4 utilizado por el buscador
-		return state.nivelDeVerificacion();
-	}
-	
-	public Review ultimaReview() { //para testear el SearchEngine
-		return reviews.get(reviews.size()-1);
-	}
-	
+//	
+//	public LocalDate ultimaVotacion() { //filtro número 2 utilizado por el buscador
+//		return reviews.get(reviews.size()-1).getFechaReview(); //agarramos la última review añadida, o sea, la más reciente
+//	}
+//	
+//	public String nivelDeVerificacion() { //filtro número 4 utilizado por el buscador
+//		return state.nivelDeVerificacion();
+//	}
+//	
+//	public Review ultimaReview() { //para testear el SearchEngine
+//		return reviews.get(reviews.size()-1);
+//	}
+//	
 }

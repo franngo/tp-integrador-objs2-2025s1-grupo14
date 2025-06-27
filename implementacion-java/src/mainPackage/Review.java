@@ -1,6 +1,6 @@
 package mainPackage;
 
-import Enums.OpinionValue;
+import Enums.*;
 import user.User;
 
 import java.time.LocalDate;
@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class Review {
 	
 	private OpinionValue opinion;
-	private String expertise;
+	private EUserState expertise;
 	private User user;
 	private LocalDate fechaReview;
 	
@@ -24,7 +24,7 @@ public class Review {
 		return opinion;
 	}
 
-	public String getExpertise() {
+	public EUserState getExpertise() {
 		return expertise;
 	}
 

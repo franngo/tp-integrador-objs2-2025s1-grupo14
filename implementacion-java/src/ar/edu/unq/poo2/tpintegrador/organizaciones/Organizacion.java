@@ -24,14 +24,14 @@ public class Organizacion implements Iobserver{
 	@Override
 	public void notifyValidation(Sample sample, Region region) {
 		//validationAction.nuevoEvento(this, region, sample);
-		System.out.println("Nueva muestra verificada: \nSample: " + sample + "\nRegion: " + region + "\nONG: " + name);
+		System.out.println("##########\nNueva muestra verificada: \nSample: " + sample + "\nRegion: " + region + "\nONG: " + name + "\n##########");
     countValidation++;
 	}
 
 	@Override
 	public void notifyUpload(Sample sample, Region region) {
 		//uploadAction.nuevoEvento(this, region, sample);
-		System.out.println("Nueva muestra subida: \nSample: " + sample + "\nRegion: " + region + "\nONG: " + name);
+		System.out.println("##########\nNueva muestra subida: \nSample: " + sample + "\nRegion: " + region + "\nONG: " + name + "\n##########");
     countUpload++;
 	}
 	

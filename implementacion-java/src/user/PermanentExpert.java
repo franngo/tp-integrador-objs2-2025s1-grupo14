@@ -1,17 +1,16 @@
 package user;
 
-import mainPackage.App;
 
-public class PermanentExpert extends User {
+import Enums.*;
 
-    public PermanentExpert (String name, App system) {
-        super(name, system);
-        state = new Expert();
-    }
 
-    @Override
-    public String getExpertise() {
-        return state.getExpertise();
-    }
+public class PermanentExpert extends Expert{
+	
+	
+	@Override
+	public void statCheck(User user) {
+		// este estado no cambia
+	}
+
 
 }
