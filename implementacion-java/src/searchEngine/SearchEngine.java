@@ -22,7 +22,7 @@ public class SearchEngine {
 		aDevolver.addAll(listasCumplen.get(0)); 
 		//Ya que, si hubo un solo criterio y no hay ningún conector lógico, no tengo que hacer operaciones lógicas
 		
-		//uso ciclo for porque quiero recorrar tanto los operadores lógicos como las listas que cumplen los criterios
+		//uso ciclo for porque quiero recorrer tanto los operadores lógicos como las listas que cumplen los criterios
 		for(int i=0; i < operators.size(); i++) {
 			int finI = i; //porque no puedo usar una variable de ciclo -que no es final- en una expresión lambda
 			if(operators.get(i).equals(LogicalOperator.And)) {

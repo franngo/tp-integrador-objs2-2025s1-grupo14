@@ -17,8 +17,6 @@ import searchEngine.*;
 import user.ChangeableUser;
 import user.PermanentExpert;
 
-
-
 public class searchEngineTest {
 	
 	App system = new App();
@@ -76,9 +74,14 @@ public class searchEngineTest {
 		Sample votada2 = system.getSamples().get(2);
 		Sample votada3 = system.getSamples().get(3);
 		Sample verificada2 = system.getSamples().get(4); 
+		List<Criterio> criterios = new ArrayList<Criterio>();
+		criterios.add(new FechaCreacionPosterior(LocalDate.of(2017, 1, 1)));
+		criterios.add(new FechaUltimaVotacionPosterior(LocalDate.of(2020, 1, 1)));
+		criterios.add(new TipoDetectado(OpinionValue.Vinchuca_Sordida));
+		criterios.add(new NivelDeVerificacion("votada"));
 		
-		List<Sample> results = serEng.buscar(system.getSamples(), LocalDate.of(2017, 1, 1) , LocalDate.of(2020, 1, 1), 
-				OpinionValue.Vinchuca_Sordida, "votada", logOps);
+		
+		List<Sample> results = serEng.buscar(system.getSamples(), criterios, logOps);
 		//cumplen: verificada - votada - votada 3 - votada 2
 		assertEquals(4, results.size());
 		assertTrue(results.contains(votada));
@@ -87,6 +90,7 @@ public class searchEngineTest {
 		assertTrue(results.contains(verificada));
 		assertFalse(results.contains(verificada2));
 	}
+	
 	
 	@Test
 	public void buscarCaso2() {
@@ -97,9 +101,11 @@ public class searchEngineTest {
 		Sample votada2 = system.getSamples().get(2);
 		Sample votada3 = system.getSamples().get(3);
 		Sample verificada2 = system.getSamples().get(4); 
+		List<Criterio> criterios = new ArrayList<Criterio>();
+		criterios.add(new FechaUltimaVotacionPosterior(LocalDate.of(2019, 1, 1)));
+		criterios.add(new TipoDetectado(OpinionValue.Vinchuca_Sordida));
 		
-		List<Sample> results = serEng.buscar(system.getSamples(), null , LocalDate.of(2019, 1, 1), 
-				OpinionValue.Vinchuca_Sordida, null, logOps);
+		List<Sample> results = serEng.buscar(system.getSamples(), criterios, logOps);
 		//cumplen criterio 1: votada - verificada - votada3
 		//cumplen criterio 2: votada - votada2
 		//cumplen todo: votada
@@ -111,6 +117,7 @@ public class searchEngineTest {
 		assertFalse(results.contains(verificada2));
 	}
 	
+	
 	@Test
 	public void buscarCaso3() {
 		List<LogicalOperator> logOps = new ArrayList<LogicalOperator>();
@@ -121,9 +128,12 @@ public class searchEngineTest {
 		Sample votada2 = system.getSamples().get(2);
 		Sample votada3 = system.getSamples().get(3);
 		Sample verificada2 = system.getSamples().get(4); 
+		List<Criterio> criterios = new ArrayList<Criterio>();
+		criterios.add(new FechaCreacionPosterior(LocalDate.of(2017, 1, 1)));
+		criterios.add(new FechaUltimaVotacionPosterior(LocalDate.of(2019, 1, 1)));
+		criterios.add(new NivelDeVerificacion("verificada"));
 		
-		List<Sample> results = serEng.buscar(system.getSamples(), LocalDate.of(2017, 1, 1) , LocalDate.of(2019, 1, 1), 
-				null, "verificada", logOps);
+		List<Sample> results = serEng.buscar(system.getSamples(), criterios, logOps);
 		//cumplen criterio 1: verificada
 		//cumplen criterio 2: votada - verificada - votada3
 		//primer or: votada - verificada - votada3
@@ -146,9 +156,11 @@ public class searchEngineTest {
 		Sample votada2 = system.getSamples().get(2);
 		Sample votada3 = system.getSamples().get(3);
 		Sample verificada2 = system.getSamples().get(4); 
+		List<Criterio> criterios = new ArrayList<Criterio>();
+		criterios.add(new FechaCreacionPosterior(LocalDate.of(2018, 1, 1)));
+		criterios.add(new FechaUltimaVotacionPosterior(LocalDate.of(2020, 1, 1)));
 		
-		List<Sample> results = serEng.buscar(system.getSamples(), LocalDate.of(2018, 1, 1) , LocalDate.of(2020, 1, 1), 
-				null, null, logOps);
+		List<Sample> results = serEng.buscar(system.getSamples(), criterios, logOps);
 		//cumplen criterio 1: verificada
 		//cumplen criterio 2: votada - votada3
 		//cumplen todo: ninguna
