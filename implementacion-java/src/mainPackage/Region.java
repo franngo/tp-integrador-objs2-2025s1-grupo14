@@ -33,10 +33,10 @@ public class Region {
     }
 
     public void addSample(Sample sample) {
-    	if(this.isPosInside(sample.getLocation())) {
+//   	if(this.isPosInside(sample.getLocation())) {
     		samples.add(sample);
     		this.notify("upload", sample);
-    	}
+    	
     }
     
     public List<Sample> getSamples() {

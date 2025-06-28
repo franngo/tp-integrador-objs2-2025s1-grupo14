@@ -1,6 +1,7 @@
 package sample;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,40 +67,27 @@ public class Sample {
 		/*
 		 * Indica el resultado de la muestra actual, basandose en las opiniones que tiene.
 		 */
-		//CAMBIAR Y HACELO QUE DEPENDE DEL ESTADO, TRABAJAR CON STREAMS, CUARDAS EL CURRENTRESULT PARA QUE NO LO TENGA QUE CALCULAR CADA VEZ QUE SE PREGUNTA
-		// SI EL ESTADO ES CLOSED EL CURRENT RESULT YA NO PUEDE CAMBIAR, NO VALE LA PENA CALCULARLO.
-//		double max = 0;
-//		double curr = 0;
-//		OpinionValue currResult = OpinionValue.Ninguna;
-		
-//		currResult = state.result(this);
-	
-//		for(OpinionValue ov : OpinionValue.values()) {
-//			curr = Collections.frequency(
-//					this.listLevel(state.getLevel()).stream().
-//					map(r -> r.getOpinion()).toList()
-//					, ov);
-//			
-//			if(max < curr) {
-//				max = curr;
-//				currResult = ov;
-//			} else if (max == curr) {
-//				currResult = OpinionValue.Ninguna; //resultado de empate
-//			}
-//			
-//		}
 		
 		return currResult;
 	
 	}
 	
 	public OpinionValue result(EUserState expertise) {
-		Map<Long, OpinionValue> freq = new HashMap<Long, OpinionValue>();
-			for(OpinionValue ov : OpinionValue.values()) {
-				freq.put(this.listLevel(expertise).stream().map(r -> r.getOpinion()).filter(o -> o == ov).count(), ov);
+		Map<OpinionValue, Integer> freq = new HashMap<OpinionValue, Integer>();
+		
+			for(OpinionValue ov : reviews.stream().map(r -> r.getOpinion()).distinct().toList()) {
+				freq.put(ov, Collections.frequency(this.listLevel(expertise).stream().
+													map(r -> r.getOpinion()).toList()
+											, ov));
 			}
-		Long maxFreq =  freq.keySet().stream().max(Long::compare).get();
-		return freq.get(maxFreq);
+			
+		int maxFreq =  freq.values().stream().max(Integer::compare).get();
+
+		if(freq.values().stream().filter(v -> v == maxFreq).count() > 1) {	
+			return OpinionValue.Ninguna;
+		}else {
+			return Collections.max(freq.entrySet(), Map.Entry.comparingByValue()).getKey();
+		}
 	}
 	
 	public boolean expertsCoinciden(OpinionValue opinion) {

@@ -1,8 +1,6 @@
 package user;
 
 
-import Enums.*;
-
 
 public class PermanentExpert extends Expert{
 	

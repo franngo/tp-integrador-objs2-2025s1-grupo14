@@ -81,11 +81,11 @@ public class User {
 	}
 	
 	public List<Sample> getSamples(){
-		return system.getSamples().stream().filter(s -> s.getUser() == this).toList();
+		return system.getSamplesTotal().stream().filter(s -> s.getUser() == this).toList();
 	}
 	
 	public List<Review> getReviews(){
-		return system.getSamples().stream()
+		return system.getSamplesTotal().stream()
 				.map(s -> s.getReviews())
 				.flatMap(r -> r.stream())
 				.filter(r -> r.getUser() == this).toList();

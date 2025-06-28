@@ -26,7 +26,7 @@ public class Closed implements ISampleState{
 
 	@Override
 	public OpinionValue result(Sample sample) {
-		return sample.currentResult();
+		return sample.result(EUserState.Expert);
 	}
 
 }
