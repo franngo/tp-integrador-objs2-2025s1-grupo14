@@ -33,7 +33,7 @@ public class User {
         //El paso funciona en orden, E1(a,b,c) y E2(1,2,3) => E1.a pasa a E2.1. en el orden en que se define      
         
         this.addReview(sample, OpinionValue.values()[specie.ordinal()]); 
-	     system.addSample(sample);
+	    system.addSample(sample);
 
     }
 
@@ -96,5 +96,11 @@ public class User {
 	}
 	public List<LocalDate> getReviewsDates(){
 		return this.getReviews().stream().map(r -> r.getFechaReview()).toList();
+	}
+	
+	//Test
+	public void addReviewTest(Sample sample, OpinionValue opinion) {
+		state.statCheck(this);
+		sample.addReview(opinion, this); 
 	}
 }

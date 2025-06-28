@@ -21,7 +21,7 @@ public class Main {
 		Position posR = new Position(2,1);
 		Region rA = new Region(posR, 1000d, "Varela", EM);
 		
-		User u1 = new PermanentE("Pepe", system);
+		User u1 = new User("Pepe", system);
 		User u2 = new PermanentE("Pepe2", system);
 		User u3 = new PermanentE("Pepe3", system);
 		User u4 = new PermanentE("Pepe4", system);
@@ -32,9 +32,15 @@ public class Main {
 		system.addRegios(rA);
 //		EM.suscribeUpload(ONG1);
 //		EM.suscribeValidation(ONG2);
+		System.out.println(u1.getExpertise());
+		for(int x = 0; x < 30; x++) {
+			u1.uploadSample(EVinchuca.Sordida, pos);
+		}
+		for(int x = 0; x < 30; x++) {
+			u1.addReviewTest(s1, OpinionValue.Chinche_Foliada);
+		}
 		
-		
-		system.addSample(s1);
+		System.out.println(u1.getExpertise());
 		system.addSample(s2);
 //		System.out.println("Samples: " + system.getSamplesNoRegion());
 //		System.out.println("Samples in region: " + rA.getSamples());
@@ -43,19 +49,19 @@ public class Main {
 		
 		
 		
-		u1.addReview(s1, OpinionValue.Chinche_Foliada);
-		System.out.println("s1: " +s1.getState().toString());
-		
-		u2.addReview(s1, OpinionValue.Phtia_Chinche);
-		
-		u3.addReview(s1, OpinionValue.Phtia_Chinche);
-		System.out.println("s2: " +s1.getState().toString());
-		
-		u4.addReview(s1, OpinionValue.ImagenPocoClara);
-		System.out.println("s3: " +s1.getState().toString());
-		
-
-		System.out.println("CR: "+ s1.currentResult());
+//		u1.addReview(s1, OpinionValue.Chinche_Foliada);
+//		System.out.println("s1: " +s1.getState().toString());
+//		
+//		u2.addReview(s1, OpinionValue.Phtia_Chinche);
+//		
+//		u3.addReview(s1, OpinionValue.Phtia_Chinche);
+//		System.out.println("s2: " +s1.getState().toString());
+//		
+//		u4.addReview(s1, OpinionValue.ImagenPocoClara);
+//		System.out.println("s3: " +s1.getState().toString());
+//		
+//
+//		System.out.println("CR: "+ s1.currentResult());
 
 
 	}

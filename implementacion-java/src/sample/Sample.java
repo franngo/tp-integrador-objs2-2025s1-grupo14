@@ -36,6 +36,7 @@ public class Sample {
 		this.system = system;
 		state = new Open();
 		currResult =  OpinionValue.values()[specie.ordinal()];
+		fechaCreacion = LocalDate.now();
 	
 	
 	}
