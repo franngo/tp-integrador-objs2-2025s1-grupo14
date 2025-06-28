@@ -2,8 +2,6 @@ package position;
 import java.util.List;
 import java.util.stream.*;
 
-import mainPackage.App;
-import mainPackage.Region;
 import sample.*;
 
 public class Position {
@@ -75,8 +73,5 @@ public class Position {
         return this.longitude;
     }
     
-    public List<Region> getRegions(App system){
-    	return system.getRegions().stream().filter(r -> r.isPosInside(this)).toList();
-    }
 
 }

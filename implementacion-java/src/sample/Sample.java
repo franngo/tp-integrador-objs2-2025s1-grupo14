@@ -43,7 +43,9 @@ public class Sample {
 
 	public void addReview(OpinionValue opinion, User user) {
 		/*
-		 * Agrega la opion del usuario
+		 * Chequea el estado por si lo tiene que cambiar.
+		 * Agrega la opion del usuario, con el estado actual.
+		 * Actualiza el currentResult si debe.
 		 */
 		
 			state.checkStateChange(user.getExpertise(), this, opinion);
@@ -68,20 +70,30 @@ public class Sample {
 		/*
 		 * Indica el resultado de la muestra actual, basandose en las opiniones que tiene.
 		 */
-		
 		return currResult;
 	
 	}
 	
 	public OpinionValue result(EUserState expertise) {
+		/*
+		 * Calcula OpinionValue que más veces se comento es la sample, teniendo en cuenta el estado de esta.
+		 */
 		Map<OpinionValue, Integer> freq = new HashMap<OpinionValue, Integer>();
 		
-			for(OpinionValue ov : reviews.stream().map(r -> r.getOpinion()).distinct().toList()) {
-				freq.put(ov, Collections.frequency(this.listLevel(expertise).stream().
-													map(r -> r.getOpinion()).toList()
-											, ov));
-			}
+//			for(OpinionValue ov : reviews.stream().map(r -> r.getOpinion()).distinct().toList()) {
+//				freq.put(ov, Collections.frequency(this.listLevel(expertise).stream().
+//													map(r -> r.getOpinion()).toList()
+//											, ov));
+//			}
+//			
+		List<OpinionValue> opinionsList =  this.listLevel(expertise).stream().map(r -> r.getOpinion()).toList();
+		
+		for(OpinionValue ov :opinionsList.stream().distinct().toList()) {
 			
+			freq.put(ov, Collections.frequency(opinionsList, ov));
+		}
+		
+		
 		int maxFreq =  freq.values().stream().max(Integer::compare).get();
 
 		if(freq.values().stream().filter(v -> v == maxFreq).count() > 1) {	
@@ -109,8 +121,13 @@ public class Sample {
 	}
 	
 	public void notifyValidation() {
+		/*
+		 * Notifica a las regiones que contienen esta sample que esta se verifico.
+		 */
+		
 		List<Region> regionsSample = system.getRegions().stream()
 				.filter(r -> r.getSamples().contains(this)).toList();
+		
 		regionsSample.forEach(r -> r.notify("validation", this));
 	}
 
@@ -144,12 +161,12 @@ public class Sample {
 		return fechaCreacion;
 	}
 	
-	public void setFechaCreacion(LocalDate fechaCreacion) { //para testear el SearchEngine
-		this.fechaCreacion = fechaCreacion;
-	}
-	
 	public App getApp() {
 		return system;
+	}
+	
+	public String getPhoto() {
+		return photo;
 	}
 	
 

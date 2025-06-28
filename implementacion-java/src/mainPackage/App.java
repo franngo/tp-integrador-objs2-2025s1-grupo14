@@ -30,7 +30,7 @@ public class App {
 		return samples;
 	}
 	
-	public void addRegios(Region region) {
+	public void addRegion(Region region) {
 		regions.add(region);
 	}
 	

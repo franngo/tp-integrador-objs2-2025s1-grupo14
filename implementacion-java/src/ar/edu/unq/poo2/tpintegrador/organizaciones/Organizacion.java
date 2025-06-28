@@ -42,5 +42,6 @@ public class Organizacion implements Iobserver{
 	public void setUploadAction(FuncionalidadExterna uploadFunc) {
 		this.uploadAction = uploadFunc;
 	}
+
   
 }

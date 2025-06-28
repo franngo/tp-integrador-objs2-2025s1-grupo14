@@ -26,10 +26,14 @@ public class Region {
      * y el de la Region analizada es menor que la suma de sus radios.
      */
     public List<Region> checkOverlaps(List<Region> regions) {
-    	return regions.stream().
+    	List<Region> regionsMenosEsta = new ArrayList<Region>(regions);	
+   		regionsMenosEsta.remove(this);
+    	
+    	return regionsMenosEsta.stream().
     			filter((r) -> this.getCenter().getDistanceTo(r.getCenter(), new Kilometers()) < 
     					(this.getRadius() + r.getRadius())).
     			collect(Collectors.toList());
+
     }
 
     public void addSample(Sample sample) {
@@ -54,6 +58,9 @@ public class Region {
     
     public double getRadius() {
     	return this.radius;
+    }
+    public String getName() {
+    	return name;
     }
  
     public boolean isPosInside(Position position) {

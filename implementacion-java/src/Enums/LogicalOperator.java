@@ -1,6 +1,6 @@
 package Enums;
 
-public enum LogicalOperator {
-	And,
-	Or
-}
+//public enum LogicalOperator {
+//	And,
+//	Or
+//}

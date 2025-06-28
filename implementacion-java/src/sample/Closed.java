@@ -19,10 +19,10 @@ public class Closed implements ISampleState{
 		//no hace nada porque este es el "estado final". No existe un cambio de estado a otro estado.
 	}
 	
-	@Override
-	public String nivelDeVerificacion() {
-		return "verificada";
-	}
+//	@Override
+//	public String nivelDeVerificacion() {
+//		return "verificada";
+//	}
 
 	@Override
 	public OpinionValue result(Sample sample) {
