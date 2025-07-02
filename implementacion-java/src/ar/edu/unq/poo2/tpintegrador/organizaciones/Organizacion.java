@@ -12,8 +12,8 @@ public class Organizacion implements Iobserver{
 	private FuncionalidadExterna validationAction;
 	private FuncionalidadExterna uploadAction;
 	
-	public int countUpload = 0; //solo para los test. Porque no se usar Mockito :).
-	public int countValidation = 0;
+	public int countUpload = 0; //La utilizamos solamente para los tests, ya que no nos salió usando Mockito
+	public int countValidation = 0; //La utilizamos solamente para los tests, ya que no nos salió usando Mockito
 	
 	public Organizacion(String name,TipoDeOrganizacion tipoONG, int employeesAmount) {
 		this.name = name;
@@ -23,24 +23,26 @@ public class Organizacion implements Iobserver{
   
 	@Override
 	public void notifyValidation(Sample sample, Region region) {
-		//validationAction.nuevoEvento(this, region, sample);
-		System.out.println("##########\nNueva muestra verificada: \nSample: " + sample + "\nRegion: " + region + "\nONG: " + name + "\n##########");
-    countValidation++;
+		validationAction.nuevoEvento(this, region, sample);
+		countValidation++;
 	}
 
 	@Override
 	public void notifyUpload(Sample sample, Region region) {
-		//uploadAction.nuevoEvento(this, region, sample);
-		System.out.println("##########\nNueva muestra subida: \nSample: " + sample + "\nRegion: " + region + "\nONG: " + name + "\n##########");
-    countUpload++;
+		uploadAction.nuevoEvento(this, region, sample);
+		countUpload++;
 	}
 	
-	public void setValidationAction(FuncionalidadExterna valitionFunc) {
-		this.validationAction = valitionFunc;
+	public void setValidationAction(FuncionalidadExterna validationFunc) {
+		this.validationAction = validationFunc;
 	}
   
 	public void setUploadAction(FuncionalidadExterna uploadFunc) {
 		this.uploadAction = uploadFunc;
+	}
+	
+	public String getName() {
+		return this.name;
 	}
 
   

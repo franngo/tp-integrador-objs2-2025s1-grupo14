@@ -17,7 +17,6 @@ import sample.*;
 import user.*;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
 
 
 public class OrganizacionTest{
@@ -49,6 +48,8 @@ public class OrganizacionTest{
 		rA = new Region(new Position(2,1), 1000d, "El Pais de las Maravillas", events);
 		
 		syst.addRegion(rA);
+		ong.setUploadAction(new EmisorPorConsolaCarga());
+		ong.setValidationAction(new EmisorPorConsolaValidacion());
 	}
 	
 	@Test
@@ -130,17 +131,6 @@ public class OrganizacionTest{
 		
 		assertEquals(0, ong.countValidation);
 		
-	}
-	
-	
-	@Test
-	public void setValidationAction() {
-		FuncionalidadExterna validation = mock(FuncionalidadExterna.class);
-		ong.setValidationAction(validation);
-		
-		FuncionalidadExterna upload = mock(FuncionalidadExterna.class);
-		ong.setUploadAction(upload);
-
 	}
 
 }
