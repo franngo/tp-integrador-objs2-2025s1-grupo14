@@ -4,20 +4,26 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import Enums.EVinchuca;
+import mainPackage.App;
 
 import java.util.List;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import position.*;
 import sample.*;
+import user.User;
 
 public class PositionTest {
-	Position bsAs = new Position(-34.6037, -58.3816, null);
-	Position stgoDeChile = new Position(-33.4489, -70.6693, null); //a 1139km de bsAs
-	Position montevideo = new Position(-34.7276, -56.2159, null); //a 199km de bsAs
-	Position bahiaBlanca = new Position(-38.7155, -62.2615, null); //a 573km de bsAs
-	Position stgoDelEstero = new Position(-27.79, -64.2628, null); //a 941km de bsAs
-	
+	App system;
+	Position bsAs = new Position(-34.6037, -58.3816); //a 256km de arielAzul
+	Position bahiaBlanca = new Position(-38.7155, -62.2615); //a 318km de arielAzul
+	Position montevideo = new Position(-34.7276, -56.2159); //a 390km de arielAzul
+	Position stgoDeChile = new Position(-33.4489, -70.6693); //a 1037km de arielAzul
+	Position stgoDelEstero = new Position(-27.79, -64.2628); //a 1054km de arielAzul
+
+	@BeforeEach
+	public void setUp() {
+		system = new App();
+	}
 	@Test
 	public void distanceTest() {
 		assertEquals(1139, bsAs.getDistanceTo(stgoDeChile, new Kilometers()));
@@ -54,10 +60,10 @@ public class PositionTest {
 	@Test
 	public void samplesInRangeTest() {
 		List <Sample> ss = new ArrayList<Sample>();
-		Sample sStgoDeChile = new Sample("marce678", EVinchuca.Infestans, stgoDeChile, LocalDate.now());
-		Sample sMontevideo = new Sample("andrea2001", EVinchuca.Sordida, montevideo, LocalDate.now());
-		Sample sBahiaBlanca = new Sample("edgarErnesto4", EVinchuca.Guasayana, bahiaBlanca, LocalDate.now());
-		Sample sStgoDelEstero = new Sample("lucho234", EVinchuca.Infestans, stgoDelEstero, LocalDate.now());
+		Sample sStgoDeChile = new Sample(new User("Pepe2", system), EVinchuca.Infestans, stgoDeChile, system);
+		Sample sMontevideo = new Sample(new User("Pepe3", system), EVinchuca.Sordida, montevideo, system);
+		Sample sBahiaBlanca = new Sample(new User("Pepe4", system), EVinchuca.Guasayana, bahiaBlanca, system);
+		Sample sStgoDelEstero = new Sample(new User("Pepe5", system), EVinchuca.Infestans, stgoDelEstero, system);
 		ss.add(sStgoDeChile);
 		ss.add(sMontevideo);
 		ss.add(sBahiaBlanca);

@@ -1,17 +1,14 @@
 package user;
 
-import mainPackage.App;
 
-public class PermanentExpert extends User {
 
-    public PermanentExpert (String name, App system) {
-        super(name, system);
-        state = new Expert();
-    }
+public class PermanentExpert extends Expert{
+	
+	
+	@Override
+	public void statCheck(User user) {
+		// este estado no cambia
+	}
 
-    @Override
-    public String getExpertise() {
-        return state.getExpertise();
-    }
 
 }

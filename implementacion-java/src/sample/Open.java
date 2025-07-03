@@ -1,6 +1,6 @@
 package sample;
 
-import Enums.OpinionValue;
+import Enums.*;
 
 public class Open implements ISampleState{
 
@@ -10,13 +10,13 @@ public class Open implements ISampleState{
 	}
 
 	@Override
-	public boolean isValid(String expertise) {
+	public boolean isValid(EUserState expertise) {
 		return true;
 	}
 
 	@Override
-	public void checkStateChange(String expertise, Sample sample, OpinionValue opinion) {
-		if(expertise.equalsIgnoreCase("Expert")) {
+	public void checkStateChange(EUserState expertise, Sample sample, OpinionValue opinion) {
+		if(expertise == EUserState.Expert) {
 			System.out.println("A partir de ahora opinan Expertos");
 			this.changeState(sample);
 		}
@@ -24,8 +24,16 @@ public class Open implements ISampleState{
 	}
 	
 	@Override
-	public String nivelDeVerificacion() {
-		return "votada";
+	public OpinionValue result(Sample sample) {
+		return sample.result(EUserState.Basic);
 	}
+	
+	
+//	@Override
+//	public String nivelDeVerificacion() {
+//		return "votada";
+//	}
+
+
 
 }
