@@ -2,53 +2,48 @@ package sampleTest;
 
 import static org.junit.Assert.assertEquals;
 
-import java.time.LocalDate;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import Enums.EVinchuca;
-import Enums.TipoDeOrganizacion;
 import ar.edu.unq.poo2.tpintegrador.organizaciones.EventManager;
-import ar.edu.unq.poo2.tpintegrador.organizaciones.Organizacion;
 import mainPackage.App;
 import mainPackage.Region;
 import position.Position;
 import sample.Sample;
+import user.User;
 
 public class SampleInRegion {
 	
 	App syst = new App();
-	Position pos;
-	Organizacion ong;
 	Sample s1 ;
 	Sample s2 ;
-	Position posCenter;
 	Region rA;
 	EventManager events;
-	
+	User u1;
 	
 	@BeforeEach
 	public void setUp() {
-		ong = new Organizacion("Pepe´s Comp.", TipoDeOrganizacion.Asistencia, 32);
-		pos = new Position(1,1,syst);
-		s1 = new Sample("Palito", EVinchuca.Sordida, pos, LocalDate.now());
-		s2 = new Sample("Anis", EVinchuca.Guasayana, new Position(32,124, syst), LocalDate.now());
-		posCenter = new Position(2,1,syst);
+		u1 = new User("Pepe", syst);
+		s1 =  new Sample(u1, EVinchuca.Guasayana, new Position(1,1), syst);
+		s2 =  new Sample(u1, EVinchuca.Guasayana, new Position(1432,14324), syst);
 		events = new EventManager();
-		rA = new Region(posCenter, 1000d, "El Pais de las Maravillas", events);
-		syst.addRegios(rA);
+		rA = new Region(new Position(2,1), 1000d, "El Pais de las Maravillas", events);
+		syst.addRegion(rA);
 	}
 	
 	@Test
 	public void addSampleToRegion() {
 		syst.addSample(s1);
-		assertEquals(1, rA.getSamplesInRegion(syst.getSamples()).size());
+		
+		assertEquals(Arrays.asList(s1), rA.getSamples());
 	}
 	
 	@Test
 	public void addSampleToSystem() {
 		syst.addSample(s2);
-		assertEquals(0, rA.getSamplesInRegion(syst.getSamples()).size());
+		assertEquals(Arrays.asList(s2), syst.getSamplesNoRegion());
 	}
 }

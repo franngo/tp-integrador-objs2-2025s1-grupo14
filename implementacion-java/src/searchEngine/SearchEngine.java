@@ -13,6 +13,7 @@ public class SearchEngine {
 	 *  Precondición: 
 	 * -Se deben pasar n-1 conectores lógicos, siendo n la cantidad de criterios que se pasan como argumento.
 	 */
+
 	public List<Sample> buscar(List<Sample> samples, List<Criterio> criterios, List<LogicalOperator> operators) {
 		
 		List<List<Sample>> listasCumplen= criterios.stream().
@@ -37,4 +38,6 @@ public class SearchEngine {
 		return aDevolver.stream().collect(Collectors.toList());
 		
 	}
+
+
 }

@@ -11,7 +11,7 @@ public class Region {
     private Position center;
     private double radius; //expresado en km
     private String name;
-    //private List<Sample> samples = new ArrayList<Sample>();
+    private List<Sample> samples = new ArrayList<Sample>();
     private EventManager events;
     
     
@@ -26,17 +26,27 @@ public class Region {
      * y el de la Region analizada es menor que la suma de sus radios.
      */
     public List<Region> checkOverlaps(List<Region> regions) {
-    	return regions.stream().
+    	List<Region> regionsMenosEsta = new ArrayList<Region>(regions);	
+   		regionsMenosEsta.remove(this);
+    	
+    	return regionsMenosEsta.stream().
     			filter((r) -> this.getCenter().getDistanceTo(r.getCenter(), new Kilometers()) < 
     					(this.getRadius() + r.getRadius())).
     			collect(Collectors.toList());
+
     }
 
-    public List<Sample> getSamplesInRegion(List<Sample> samples) {
-    	//return samples;
-        return this.getCenter().getSamplesInRangeToMe(samples, this.getRadius(), new Kilometers());
+    public void addSample(Sample sample) {
+//   	if(this.isPosInside(sample.getLocation())) {
+    		samples.add(sample);
+    		this.notify("upload", sample);
+    	
     }
-
+    
+    public List<Sample> getSamples() {
+    	return samples;
+    }
+    
     
     public void notify(String eventType, Sample sample) {
     	events.notify(eventType, sample, this);
@@ -49,8 +59,10 @@ public class Region {
     public double getRadius() {
     	return this.radius;
     }
-
-    
+    public String getName() {
+    	return name;
+    }
+ 
     public boolean isPosInside(Position position) {
     	double distanciaKm = position.getDistanceTo(center, new Kilometers());
         double radioKm = this.getRadius();

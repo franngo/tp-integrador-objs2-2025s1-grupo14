@@ -11,13 +11,13 @@ import org.junit.jupiter.api.BeforeEach;
 
 import Enums.*;
 import mainPackage.*;
-import position.Position;
+import position.*;
 import sample.*;
 import searchEngine.*;
-import user.ChangeableUser;
-import user.PermanentExpert;
+import user.*;
 
 public class searchEngineTest {
+
 	
 	App system = new App();
 	ChangeableUser mariano = new ChangeableUser("mariano789", system);
@@ -171,5 +171,6 @@ public class searchEngineTest {
 		assertFalse(results.contains(verificada));
 		assertFalse(results.contains(verificada2));
 	}
+
 	
 }

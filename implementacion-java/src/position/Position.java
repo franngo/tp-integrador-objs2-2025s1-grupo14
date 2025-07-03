@@ -2,21 +2,17 @@ package position;
 import java.util.List;
 import java.util.stream.*;
 
-import mainPackage.App;
-import mainPackage.Region;
 import sample.*;
 
 public class Position {
     private double latitude; //expresada en grados decimales
     private double longitude; //expresada en grados decimales
     
-    //prueba
-    private App system;
+
     
-    public Position(double latitude, double longitude, App system) {
+    public Position(double latitude, double longitude) {
     	this.latitude = latitude;
     	this.longitude = longitude;
-    	this.system = system;
     }
 
     //1.
@@ -54,21 +50,14 @@ public class Position {
 
     //2.
     public List<Position> positionsInRangeToMe(List<Position> positions, double radius, MeasureUnit mu) {
+    	/*
+    	 * Devuelve una lista de Positiones que esten a x distancia de la posicion actual, en la unidad de medida espesificada
+    	 */
     	return positions.stream().
     			filter((p) -> this.getDistanceTo(p, mu) <= radius).
     			collect(Collectors.toList());
     }
 
-    //el punto 3 del apartado Ubicación del pdf me da a entender que Sample tiene que tener un comportamiento que 
-    //le delega a su position
-    /*
-    public class Sample() {
-    	...
-    	public List<Sample> getSamplesInRange(List<Sample> samples, double radius, MeasureUnit mu) {
-        	return this.location.getSamplesIn(samples, radius, mu);
-    	}
-    }
-    */
     
     public List<Sample> getSamplesInRangeToMe(List<Sample> samples, double radius, MeasureUnit mu) {
     	return samples.stream().
@@ -84,11 +73,5 @@ public class Position {
         return this.longitude;
     }
     
-    public List<Region> getRegions(App system){
-    	return system.getRegions().stream().filter(r -> r.isPosInside(this)).toList();
-    }
-    
-    public App getApp() {
-    	return system;
-    }
+
 }
