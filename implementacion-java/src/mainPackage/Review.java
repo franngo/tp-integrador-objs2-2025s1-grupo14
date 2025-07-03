@@ -35,9 +35,10 @@ public class Review {
 	public LocalDate getFechaReview() {
 		return fechaReview;
 	}
+
 	
-//	public void setFechaReview(LocalDate fechaReview) { //para testear el SearchEngine
-//		this.fechaReview = fechaReview;
-//	}
+	public void setFechaReview(LocalDate fechaReview) { //para testear el SearchEngine
+		this.fechaReview = fechaReview;
+	}
 
 }

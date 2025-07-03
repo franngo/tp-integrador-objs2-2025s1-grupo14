@@ -182,17 +182,22 @@ public class Sample {
 	}
 
 	
-//	
-//	public LocalDate ultimaVotacion() { //filtro número 2 utilizado por el buscador
-//		return reviews.get(reviews.size()-1).getFechaReview(); //agarramos la última review añadida, o sea, la más reciente
-//	}
-//	
-//	public String nivelDeVerificacion() { //filtro número 4 utilizado por el buscador
-//		return state.nivelDeVerificacion();
-//	}
-//	
-//	public Review ultimaReview() { //para testear el SearchEngine
-//		return reviews.get(reviews.size()-1);
-//	}
-//	
+	
+	public LocalDate ultimaVotacion() { //filtro número 2 utilizado por el buscador
+		return reviews.get(reviews.size()-1).getFechaReview(); //agarramos la última review añadida, o sea, la más reciente
+	}
+	
+	public String nivelDeVerificacion() { //filtro número 4 utilizado por el buscador
+		return state.nivelDeVerificacion();
+	}
+	
+	public Review ultimaReview() { //para testear el SearchEngine
+		return reviews.get(reviews.size()-1);
+	}
+
+	public void setFechaCreacion(LocalDate of) {
+		fechaCreacion = of;
+		
+	}
+	
 }

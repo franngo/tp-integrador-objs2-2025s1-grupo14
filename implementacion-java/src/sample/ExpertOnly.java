@@ -30,10 +30,10 @@ public class ExpertOnly implements ISampleState{
 		}
 	}
 
-//	@Override
-//	public String nivelDeVerificacion() {
-//		return "votada";
-//	}
+	@Override
+	public String nivelDeVerificacion() {
+		return "votada";
+	}
 
 	@Override
 	public OpinionValue result(Sample sample) {

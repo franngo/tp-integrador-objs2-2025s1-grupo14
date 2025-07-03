@@ -29,10 +29,10 @@ public class Open implements ISampleState{
 	}
 	
 	
-//	@Override
-//	public String nivelDeVerificacion() {
-//		return "votada";
-//	}
+	@Override
+	public String nivelDeVerificacion() {
+		return "votada";
+	}
 
 
 

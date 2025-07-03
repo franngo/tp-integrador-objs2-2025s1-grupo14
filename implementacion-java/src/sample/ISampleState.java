@@ -10,6 +10,6 @@ public interface ISampleState {
 	public void checkStateChange(EUserState expertise, Sample sample, OpinionValue opinion);
 	
 	
-//	public String nivelDeVerificacion();
+	public String nivelDeVerificacion();
 	public OpinionValue result(Sample sample);
 }
